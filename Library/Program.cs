@@ -1,5 +1,8 @@
+using Library.Contracts;
 using Library.Data;
+using Library.Data.Models;
 using Library.Models.Account;
+using Library.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +14,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<User>(options =>
+options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+});
 
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IBookServices, BookServices>();
+//builder.Services.AddScoped<IPublisherServices, PublisherServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -4,10 +4,10 @@ namespace Library.Models.Account
 {
     public class LogInViewModel
     {
-     /*   [Required]
+        [Required]
         public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }*/
+        public string Password { get; set; }
     }
 }

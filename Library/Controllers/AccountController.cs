@@ -3,6 +3,8 @@ using Library.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace Library.Controllers
 {
@@ -12,13 +14,79 @@ namespace Library.Controllers
 
         private readonly SignInManager<ApplicationUser> signInManager;
 
+        private readonly RoleManager<IdentityRole> roleManager;
+
+
+
         public AccountController(
             UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager)
+            SignInManager<ApplicationUser> _signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            this.roleManager = roleManager;
+            this.CreateRoles();
         }
+
+
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public IActionResult MakeRole()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> MakeRole(IdentityRole model)
+        {
+            if (!roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
+            {
+                roleManager.CreateAsync(new IdentityRole(model.Name)).GetAwaiter().GetResult();
+            }
+            return RedirectToAction("MakeRole");
+        }
+   
+        private async Task CreateRoles()
+        {
+            if (this.roleManager.Roles.Count() == 0)
+            {
+                await roleManager.CreateAsync(new IdentityRole() { Name = "Reader" });
+                await roleManager.CreateAsync(new IdentityRole() { Name = "Writer" });
+                await roleManager.CreateAsync(new IdentityRole() { Name = "Redactor" });
+                await roleManager.CreateAsync(new IdentityRole() { Name = "Administrator" });
+            }
+
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            IdentityRole role = await roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                IdentityResult result = await roleManager.DeleteAsync(role);
+                if (result.Succeeded)
+                    return RedirectToAction("Index");
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "No role found");
+            }
+            return View("Index", roleManager.Roles);
+        }
+
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -30,6 +98,7 @@ namespace Library.Controllers
             }
 
             var model = new RegisterViewModel();
+            ViewBag.RolesId = new SelectList(roleManager.Roles, "Name", "Name");
 
             return View(model);
         }
@@ -49,24 +118,34 @@ namespace Library.Controllers
                 LastName = model.LastName,
                 Age = model.Age
             };
+            ViewBag.RolesList = roleManager.Roles;
             var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Home", "Index");
+                await userManager.AddClaimAsync(user, new Claim("email", user.Email));
+                if (model.Email == "hristina0404@gmail.com")
+                {
+                    await userManager.AddToRoleAsync(user, "Administrator");
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user, model.Role);
+                }
+                await signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home");
             }
+
             foreach (var item in result.Errors)
             {
                 ModelState.AddModelError("", item.Description);
             }
+
             return View(model);
         }
 
 
 
-
-
-/*
 
         [HttpGet]
         [AllowAnonymous]
@@ -102,6 +181,15 @@ namespace Library.Controllers
             }
             ModelState.AddModelError("", "Invalid login");
             return View(model);
-        }*/
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
     }
 }

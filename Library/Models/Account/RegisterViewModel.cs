@@ -8,10 +8,10 @@ namespace Library.Models.Account
         [StringLength(20, MinimumLength = 5)]
         public string UserName { get; set; } = null;
         [Required]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(20, MinimumLength = 2)]
         public string FirstName { get; set; } = null;
         [Required]
-        [StringLength(20, MinimumLength = 5)]
+        [StringLength(20, MinimumLength = 2)]
         public string LastName { get; set; } = null;
         [Required]
         public int Age { get; set; }
@@ -27,5 +27,7 @@ namespace Library.Models.Account
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = null;
+        [Required]
+        public string Role { get; set; }
     }
 }
