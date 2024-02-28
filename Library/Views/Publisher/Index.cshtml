@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PublishersViewModel>
+
+<h1>Publishers:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var publisher in this.Model)
+        {
+            <tr>
+                <td>@publisher.Name</td>
+                <td>@publisher.City</td>
+                <td>
+                     <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

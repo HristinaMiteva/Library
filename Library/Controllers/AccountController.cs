@@ -10,17 +10,17 @@ namespace Library.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
         private readonly RoleManager<IdentityRole> roleManager;
 
 
 
         public AccountController(
-            UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager,
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager,
             RoleManager<IdentityRole> roleManager)
         {
             userManager = _userManager;
@@ -110,7 +110,7 @@ namespace Library.Controllers
             {
                 return View(model);
             }
-            var user = new ApplicationUser()
+            var user = new User()
             {
                 Email = model.Email,
                 UserName = model.UserName,

@@ -26,7 +26,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookServices, BookServices>();
-//builder.Services.AddScoped<IPublisherServices, PublisherServices>();
+builder.Services.AddScoped<IPublisherServices, PublisherServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

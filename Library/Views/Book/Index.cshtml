@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BooksViewModel>
+<div class="text-center row">
+    @foreach (var book in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <img class="card-img-top" src="@book.Image" height="350" alt="Book Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@book.Title</h5>
+                <p class="mb-0">Author: @book.Author</p>
+                <p class="mb-0">Pages: @book.Pages</p>
+                <p class="mb-0">ISBN: @book.ISBN</p>
+                <p class="mb-0">Year: @book.PublishingYear</p>
+                <p>Publisher: @book.PublisherName</p>
+            </div>
+
+            <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">
+                <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+        </div>
+    }
+</div>
