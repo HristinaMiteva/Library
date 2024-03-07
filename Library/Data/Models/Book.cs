@@ -17,9 +17,11 @@ namespace Library.Data.Models
         public string Image { get; set; }
         [Required]
         public int PublishingYear { get; set; }
+
+        [Required]
         [ForeignKey(nameof(Publisher))]
         public Guid? PublisherId { get; set; }
         public Publisher? Publisher { get; set; }
-        public HashSet<UserBook> UserBook { get; set; } = new HashSet<UserBook>();
+        public HashSet<UserBook> UserBooks { get; set; } = new HashSet<UserBook>();
     }
 }

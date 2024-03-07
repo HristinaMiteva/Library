@@ -6,5 +6,6 @@ namespace Library.Contracts
     {
         Task<IEnumerable<PublishersViewModel>> GetAllAsync();
         Task AddPublisherAsync(AddPublisherViewModel model);
+        Task DeletePublisherAsync(Guid id);
     }
 }

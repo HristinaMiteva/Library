@@ -24,7 +24,7 @@ namespace Library.Services
             return entities
                 .Select(b => new PublishersViewModel
                 {
-                    Id = Guid.NewGuid(),
+                    Id = b.Id,
                     Name = b.Name,
                     City = b.City
                 });
@@ -41,6 +41,22 @@ namespace Library.Services
             await this.context.Publishers.AddAsync(publisher);
             await context.SaveChangesAsync();
 
+        }
+
+        public async Task DeletePublisherAsync(Guid id)
+        {
+            var model = await this.context.Publishers
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (model != null)
+            {
+                context.Publishers.Remove(model);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }

@@ -33,5 +33,12 @@ namespace Library.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await publisherServices.DeletePublisherAsync(id);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
