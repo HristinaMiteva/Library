@@ -40,7 +40,9 @@ namespace Library.Controllers
         [Authorize(Roles = "Writer, Redactor, Administrator")]
         public async Task<IActionResult> Add(AddBookViewModel viewModel)
         {
-            if (!ModelState.IsValid) { return View(viewModel); }
+            if (!ModelState.IsValid) {
+                ViewBag.PublisherId = this.bookServices.AddBookAsync();
+                return View(viewModel); }
             await this.bookServices.AddBookAsync(viewModel);
             return RedirectToAction("Index", "Home");
         }

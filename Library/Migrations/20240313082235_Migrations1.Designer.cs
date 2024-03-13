@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240214091948_newmig")]
-    partial class newmig
+    [Migration("20240313082235_Migrations1")]
+    partial class Migrations1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,7 @@ namespace Library.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("PublisherId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PublishingYear")
@@ -67,10 +68,6 @@ namespace Library.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -81,87 +78,6 @@ namespace Library.Migrations
                 });
 
             modelBuilder.Entity("Library.Data.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Library.Data.Models.UserBook", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsFavorite")
-                        .HasColumnType("bit");
-
-                    b.HasKey("UserId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("UserBook");
-                });
-
-            modelBuilder.Entity("Library.Models.Account.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -184,12 +100,12 @@ namespace Library.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -235,6 +151,24 @@ namespace Library.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Library.Data.Models.UserBook", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsFavorite")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("UserBooks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -378,7 +312,9 @@ namespace Library.Migrations
                 {
                     b.HasOne("Library.Data.Models.Publisher", "Publisher")
                         .WithMany("Books")
-                        .HasForeignKey("PublisherId");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Publisher");
                 });
@@ -386,7 +322,7 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Data.Models.UserBook", b =>
                 {
                     b.HasOne("Library.Data.Models.Book", "Book")
-                        .WithMany("UserBook")
+                        .WithMany("UserBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -413,7 +349,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Library.Models.Account.ApplicationUser", null)
+                    b.HasOne("Library.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -422,7 +358,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Library.Models.Account.ApplicationUser", null)
+                    b.HasOne("Library.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -437,7 +373,7 @@ namespace Library.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Library.Models.Account.ApplicationUser", null)
+                    b.HasOne("Library.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,7 +382,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Library.Models.Account.ApplicationUser", null)
+                    b.HasOne("Library.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,7 +391,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Data.Models.Book", b =>
                 {
-                    b.Navigation("UserBook");
+                    b.Navigation("UserBooks");
                 });
 
             modelBuilder.Entity("Library.Data.Models.Publisher", b =>

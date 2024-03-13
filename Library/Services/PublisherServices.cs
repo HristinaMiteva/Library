@@ -26,7 +26,6 @@ namespace Library.Services
                 {
                     Id = b.Id,
                     Name = b.Name,
-                    City = b.City
                 });
 
         }
@@ -36,7 +35,6 @@ namespace Library.Services
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
-                City = model.City
             };
             await this.context.Publishers.AddAsync(publisher);
             await context.SaveChangesAsync();

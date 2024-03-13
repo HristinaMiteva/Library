@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Library.Migrations
 {
-    public partial class mig : Migration
+    public partial class Migrations1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,10 +28,9 @@ namespace Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Age = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -57,8 +56,7 @@ namespace Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,7 +180,7 @@ namespace Library.Migrations
                     ISBN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishingYear = table.Column<int>(type: "int", nullable: false),
-                    PublisherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    PublisherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,11 +189,12 @@ namespace Library.Migrations
                         name: "FK_Books_Publishers_PublisherId",
                         column: x => x.PublisherId,
                         principalTable: "Publishers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserBook",
+                name: "UserBooks",
                 columns: table => new
                 {
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -204,15 +203,15 @@ namespace Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBook", x => new { x.UserId, x.BookId });
+                    table.PrimaryKey("PK_UserBooks", x => new { x.UserId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_UserBook_AspNetUsers_UserId",
+                        name: "FK_UserBooks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserBook_Books_BookId",
+                        name: "FK_UserBooks_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
@@ -264,8 +263,8 @@ namespace Library.Migrations
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserBook_BookId",
-                table: "UserBook",
+                name: "IX_UserBooks_BookId",
+                table: "UserBooks",
                 column: "BookId");
         }
 
@@ -287,7 +286,7 @@ namespace Library.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "UserBook");
+                name: "UserBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

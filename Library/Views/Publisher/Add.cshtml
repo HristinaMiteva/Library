@@ -2,17 +2,13 @@
 @model Library.Models.PublisherViewModels.AddPublisherViewModel
 
 <form action="Add" method="POST">
-    <h1>Add publisher:</h1>
+    <h1>Добавяне на издателска къща:</h1>
 
     <div class="mb-3">
-        <label>Name:</label>
+        <label>Име:</label>
         <input type="text" asp-for="Name" class="form-control">
     </div>
 
-    <div class="mb-3">
-        <label>City:</label>
-        <input type="text" asp-for="City" class="form-control">
-    </div>
 
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary">Добавяне</button>
 </form>
