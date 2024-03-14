@@ -12,5 +12,6 @@ namespace Library.Data.Models
         [Required]
         public int Age { get; set; }
         public HashSet<UserBook> UserBooks { get; set; } = new HashSet<UserBook>() { };
+        public HashSet<Favorite> Favorites { get; set; } = new HashSet<Favorite>() { };
     }
 }

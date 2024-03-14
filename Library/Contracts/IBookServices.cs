@@ -11,5 +11,8 @@ namespace Library.Contracts
         Task AddBookAsync(AddBookViewModel model);
         Task ReadBookAsync(Guid id, User user);
         Task<IEnumerable<BooksViewModel>> BookReadAsync(User user);
+        Task FavoriteBookAsync(Guid id, User user);
+        Task<IEnumerable<BooksViewModel>> BookFavoriteAsync(User user);
+        Task DeleteBookAsync(Guid id);
     }
 }

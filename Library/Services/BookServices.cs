@@ -99,6 +99,63 @@ namespace Library.Services
 
             throw new NullReferenceException();
         }
-     
+
+        public async Task FavoriteBookAsync(Guid id, User user)
+        {
+            Book book = await this.context.Books.FindAsync(id);
+
+            if (book != null && user != null)
+            {
+                Favorite book1 = new Favorite()
+                {
+                    Book = book,
+                    User = user
+                };
+                await this.context.Favorites.AddAsync(book1);
+                await this.context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<BooksViewModel>> BookFavoriteAsync(User user)
+        {
+            User? userWithBooks = await context.Users
+                 .Where(u => u.Id == user.Id)
+                 .Include(u => u.Favorites)
+                 .ThenInclude(b => b.Book)
+                 .ThenInclude(b => b.Publisher)
+                 .FirstOrDefaultAsync();
+            if (userWithBooks.Favorites != null)
+            {
+                var books = userWithBooks.Favorites
+                    .Select(b => new BooksViewModel()
+                    {
+                        Title = b.Book.Title,
+                        Author = b.Book.Author,
+                        Pages = b.Book.Pages,
+                        ISBN = b.Book.ISBN,
+                        Image = b.Book.Image,
+                        PublishingYear = b.Book.PublishingYear,
+                        PublisherName = b.Book?.Publisher?.Name
+                    });
+                return books;
+            }
+
+            throw new NullReferenceException();
+        }
+        public async Task DeleteBookAsync(Guid id)
+        {
+            var model = await this.context.Books
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (model != null)
+            {
+                context.Books.Remove(model);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
     }
 }

@@ -13,10 +13,20 @@
                 <p class="mb-0">Year of publishing: @book.PublishingYear</p>
                 <p>Publisher: @book.PublisherName</p>
             </div>
-
-            <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">
-                <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2" />
+            @if (User.IsInRole("Reader") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
+            {
+                <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">
+                    <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+                <form class="input-group-sm" asp-controller="Book" asp-action="FavoriteBook" asp-route-id="@book.Id" method="post">
+                    <input type="submit" value="Mark as favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
+            }
+            @if (User.IsInRole("Redactor") || User.IsInRole("Writer") || User.IsInRole("Administrator"))
+            {
+             <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-warning">Delete</a>
+            }
         </div>
+
     }
 </div>

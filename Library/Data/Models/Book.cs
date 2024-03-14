@@ -23,5 +23,6 @@ namespace Library.Data.Models
         public Guid? PublisherId { get; set; }
         public Publisher? Publisher { get; set; }
         public HashSet<UserBook> UserBooks { get; set; } = new HashSet<UserBook>();
+        public HashSet<Favorite> Favorites { get; set; } = new HashSet<Favorite>();
     }
 }

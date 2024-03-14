@@ -16,11 +16,14 @@ namespace Library.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<UserBook> UserBooks { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new PublisherConfiguration());
             builder.ApplyConfiguration(new BookConfiguration());
             builder.Entity<UserBook>()
+                .HasKey(x => new { x.UserId, x.BookId });
+            builder.Entity<Favorite>()
                 .HasKey(x => new { x.UserId, x.BookId });
             base.OnModelCreating(builder);
             

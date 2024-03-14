@@ -5,7 +5,7 @@ namespace Library.Data.Models
 {
     public class UserBook
     {
-        public bool IsFavorite { get; set; }
+       
 
         [Required]
         public Guid BookId { get; set; }

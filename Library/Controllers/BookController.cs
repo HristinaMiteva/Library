@@ -1,6 +1,7 @@
 ﻿using Library.Contracts;
 using Library.Data.Models;
 using Library.Models.BookViewModels;
+using Library.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -72,6 +73,40 @@ namespace Library.Controllers
             return RedirectToAction("Index", "Home");
 
 
+        }
+        [HttpPost]
+        [Authorize(Roles = "Writer, Reader")]
+        public async Task<IActionResult> FavoriteBook(Guid id)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity?.Name);
+            await this.bookServices.FavoriteBookAsync(id, user);
+
+            return RedirectToAction("Index", "Home");
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
+        public async Task<IActionResult> BookFavorite()
+        {
+            var user = await userManager.GetUserAsync(User);
+            try
+            {
+                return View(await bookServices.BookFavoriteAsync(user));
+
+            }
+            catch (Exception ex) { ModelState.AddModelError("", ex.Message); }
+
+
+            return RedirectToAction("Index", "Home");
+
+
+        }
+        [Authorize(Roles = "Administrator, Redactor, Writer")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await bookServices.DeleteBookAsync(id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
