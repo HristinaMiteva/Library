@@ -4,6 +4,7 @@ using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313092838_3")]
+    partial class _3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,171 +270,6 @@ namespace Library.Migrations
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1971,
                             Title = "The Lorax"
-                        },
-                        new
-                        {
-                            Id = new Guid("30e10c71-f5a8-4065-ad1a-fa6439cac32e"),
-                            Author = "Shel Silverstein",
-                            ISBN = "9780060256654",
-                            Image = "https://m.media-amazon.com/images/I/71wiGMKadmL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 64,
-                            PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
-                            PublishingYear = 1964,
-                            Title = "The Giving Tree"
-                        },
-                        new
-                        {
-                            Id = new Guid("944d2a25-9509-45f1-ba05-e65095a8b5f8"),
-                            Author = "E.B. White",
-                            ISBN = "9780064400565",
-                            Image = "https://m.media-amazon.com/images/I/91a1ogh+5JL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 144,
-                            PublisherId = new Guid("36bda0c2-9ea8-4c67-a86f-f81486343f12"),
-                            PublishingYear = 1945,
-                            Title = "Stuart Little"
-                        },
-                        new
-                        {
-                            Id = new Guid("91edf706-93ce-4695-81d2-e8db8212618b"),
-                            Author = "Ludwig Bemelmans",
-                            ISBN = "9780140564396",
-                            Image = "https://upload.wikimedia.org/wikipedia/en/1/19/Madeline-1939.jpg",
-                            Pages = 56,
-                            PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
-                            PublishingYear = 1939,
-                            Title = "Madeline"
-                        },
-                        new
-                        {
-                            Id = new Guid("16236379-7fd8-4f8e-b513-cef865dec7f7"),
-                            Author = "Chris Van Allsburg",
-                            ISBN = "9780395389492",
-                            Image = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1638557399i/420282.jpg",
-                            Pages = 32,
-                            PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
-                            PublishingYear = 1985,
-                            Title = "The Polar Express"
-                        },
-                        new
-                        {
-                            Id = new Guid("7ffbf854-8c14-4c02-afac-c3e30e3d7207"),
-                            Author = "Norman Bridwell",
-                            ISBN = "9780545215787",
-                            Image = "https://m.media-amazon.com/images/I/81TU2o5NYOL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 32,
-                            PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
-                            PublishingYear = 1963,
-                            Title = "Clifford the Big Red Dog"
-                        },
-                        new
-                        {
-                            Id = new Guid("e2ae75e8-7405-401f-945d-9539e98a50bd"),
-                            Author = "Bill Martin Jr.",
-                            ISBN = "9780805047905",
-                            Image = "https://m.media-amazon.com/images/I/81Ukrj-NTgL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 28,
-                            PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
-                            PublishingYear = 1967,
-                            Title = "Brown Bear, Brown Bear, What Do You See?"
-                        },
-                        new
-                        {
-                            Id = new Guid("efb48636-3c8c-44b2-9fab-160c3a172e9f"),
-                            Author = "Bill Martin Jr. and John Archambault",
-                            ISBN = "9781442450707",
-                            Image = "https://m.media-amazon.com/images/I/61rGNycNKbL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 40,
-                            PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
-                            PublishingYear = 1989,
-                            Title = "Chicka Chicka Boom Boom"
-                        },
-                        new
-                        {
-                            Id = new Guid("8c4a4908-7a5c-4364-ab4c-689deb411ccf"),
-                            Author = "Don Freeman",
-                            ISBN = "9780140501735",
-                            Image = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347517273i/231850.jpg",
-                            Pages = 32,
-                            PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
-                            PublishingYear = 1968,
-                            Title = "Corduroy"
-                        },
-                        new
-                        {
-                            Id = new Guid("c8d2119d-4cce-4ec9-98b1-66730bfdbd68"),
-                            Author = "Laura Numeroff",
-                            ISBN = "9780060245863",
-                            Image = "https://m.media-amazon.com/images/I/813csV5cPqL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 40,
-                            PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
-                            PublishingYear = 1985,
-                            Title = "If You Give a Mouse a Cookie"
-                        },
-                        new
-                        {
-                            Id = new Guid("5b0325cc-f96c-408c-98de-caf886ec12ab"),
-                            Author = "Marcus Pfister",
-                            ISBN = "9781558580091",
-                            Image = "https://m.media-amazon.com/images/I/91pdllYEUfL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 24,
-                            PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
-                            PublishingYear = 1992,
-                            Title = "The Rainbow Fish"
-                        },
-                        new
-                        {
-                            Id = new Guid("8237018b-97f0-4b42-8f10-4b545560f8be"),
-                            Author = "Ezra Jack Keats",
-                            ISBN = "9780670867332",
-                            Image = "https://m.media-amazon.com/images/I/71Ku1Uk6VqL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 40,
-                            PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
-                            PublishingYear = 1962,
-                            Title = "The Snowy Day"
-                        },
-                        new
-                        {
-                            Id = new Guid("fd6a4340-079f-4890-a06f-367021cf840a"),
-                            Author = "Robert Munsch",
-                            ISBN = "9780920236161",
-                            Image = "https://m.media-amazon.com/images/I/71fZdpPbIML._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 32,
-                            PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
-                            PublishingYear = 1980,
-                            Title = "The Paper Bag Princess"
-                        },
-                        new
-                        {
-                            Id = new Guid("41b480b1-02da-4c00-bc77-759879c25a99"),
-                            Author = "Margery Williams",
-                            ISBN = "9780380002559",
-                            Image = "https://m.media-amazon.com/images/I/81+AkzSB5hL._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 48,
-                            PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
-                            PublishingYear = 1922,
-                            Title = "The Velveteen Rabbit"
-                        },
-                        new
-                        {
-                            Id = new Guid("a1efc311-abe5-4e9c-9220-345211e335f7"),
-                            Author = "Beatrix Potter",
-                            ISBN = "9780723247784",
-                            Image = "https://m.media-amazon.com/images/I/51YliB2gTfL._AC_UF894,1000_QL80_.jpg",
-                            Pages = 64,
-                            PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
-                            PublishingYear = 1908,
-                            Title = "The Tale of Jemima Puddle-Duck"
-                        },
-                        new
-                        {
-                            Id = new Guid("2d48162d-6e09-4648-8019-f584c51dd3c6"),
-                            Author = "P.D. Eastman",
-                            ISBN = "9780394800188",
-                            Image = "https://m.media-amazon.com/images/I/61GO+cnyq5L._AC_UF1000,1000_QL80_.jpg",
-                            Pages = 72,
-                            PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
-                            PublishingYear = 1960,
-                            Title = "Are You My Mother?"
                         });
                 });
 

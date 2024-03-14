@@ -7,11 +7,11 @@
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@book.Title</h5>
-                <p class="mb-0">Автор: @book.Author</p>
-                <p class="mb-0">Страници: @book.Pages</p>
+                <p class="mb-0">Author: @book.Author</p>
+                <p class="mb-0">Pages: @book.Pages</p>
                 <p class="mb-0">ISBN: @book.ISBN</p>
-                <p class="mb-0">Гдина на издаване: @book.PublishingYear</p>
-                <p>Издателство: @book.PublisherName</p>
+                <p class="mb-0">Year of publishing: @book.PublishingYear</p>
+                <p>Publisher: @book.PublisherName</p>
             </div>
 
             <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">

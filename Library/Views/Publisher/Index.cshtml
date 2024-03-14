@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<PublishersViewModel>
 
-<h1>Издателска къща:</h1>
+<h1>Publishing house:</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th> Id </th>
-            <th>Име</th>
+            <th>Name</th>
             <th></th>
         </tr>
     </thead>
@@ -17,7 +17,7 @@
                 <th>@publisher.Id</th>
                 <td>@publisher.Name</td>
                 <td>
-                     <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-warning">Изтриване</a>
+                     <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-warning">Delete</a>
                 </td>
             </tr>
         }

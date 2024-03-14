@@ -1,4 +1,5 @@
-﻿using Library.Data.Models;
+﻿using Library.Data.Configuration;
+using Library.Data.Models;
 using Library.Models.Account;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +18,12 @@ namespace Library.Data
         public DbSet<UserBook> UserBooks { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new PublisherConfiguration());
+            builder.ApplyConfiguration(new BookConfiguration());
             builder.Entity<UserBook>()
                 .HasKey(x => new { x.UserId, x.BookId });
             base.OnModelCreating(builder);
+            
         }
 
     }
