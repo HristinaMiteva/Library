@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
+    [Authorize] 
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;

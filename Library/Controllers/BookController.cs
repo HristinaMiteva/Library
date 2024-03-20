@@ -25,7 +25,15 @@ namespace Library.Controllers
         public async Task<IActionResult> Index()
         {
             var model = await bookServices.GetAllAsync();
-            return View(model);
+
+            if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         [HttpGet]
