@@ -49,12 +49,12 @@
             </div>
 
             <div class="btn-group-sm">
-                <button type="submit" class="btn btn-primary">Add book</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Add book</button>
            
             
                 @if (User.IsInRole("Administrator"))
                 {
-                    <a asp-controller="Publisher" asp-action="Add" class="btn btn-primary">Add Publisher</a>
+                    <a asp-controller="Publisher" asp-action="Add" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Add Publisher</a>
                 }
             </div>
             <br />

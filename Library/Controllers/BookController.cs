@@ -66,7 +66,7 @@ namespace Library.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "Writer, Administrator, Reader")]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> BookRead()
         {
             var user = await userManager.GetUserAsync(User);

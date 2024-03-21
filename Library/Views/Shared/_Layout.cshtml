@@ -29,19 +29,27 @@
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 20px;">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 15px;">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookFavorite" style="font-size: 20px;">Favorites</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookFavorite" style="font-size: 15px;">Favorites</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookRead" style="font-size: 20px;">Read</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookRead" style="font-size: 15px;">Read</a>
                             </li>
+
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Index" style="font-size: 15px;">Publishing Houses</a>
+                                </li>
+                            }
+
                         }
                         else 
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Login" style="font-size: 20px;">Home</a>
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Login" style="font-size: 15px;">Home</a>
                             </li>
                         }
                         

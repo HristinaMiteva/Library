@@ -34,7 +34,7 @@ namespace Library.Services
             Publisher publisher = new Publisher()
             {
                 Id = Guid.NewGuid(),
-                Name = model.Name,
+                Name = model.Name
             };
             await this.context.Publishers.AddAsync(publisher);
             await context.SaveChangesAsync();

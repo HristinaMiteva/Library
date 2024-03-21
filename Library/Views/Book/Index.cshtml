@@ -2,7 +2,7 @@
 <div>
 @if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
 {
-    <a asp-controller="Book" asp-action="Add" class="btn btn-primary">Add Book</a>
+        <a asp-controller="Book" asp-action="Add" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Add Book</a>
 }
 </div>
 <div class="text-center row">
