@@ -50,6 +50,12 @@
 
             <div class="btn-group-sm">
                 <button type="submit" class="btn btn-primary">Add book</button>
+           
+            
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-controller="Publisher" asp-action="Add" class="btn btn-primary">Add Publisher</a>
+                }
             </div>
             <br />
           

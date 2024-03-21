@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<BooksViewModel>
+<div>
+@if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
+{
+    <a asp-controller="Book" asp-action="Add" class="btn btn-primary">Add Book</a>
+}
+</div>
 <div class="text-center row">
     @foreach (var book in Model)
     {
-        <div class="card col-4" style="width: 20rem;">
+        <div class="card col-4" style="width: 20rem; background-color:#FFAE42; padding:4px; margin:5px; border-radius:15px">
             <img class="card-img-top" src="@book.Image" height="350" alt="Book Image">
             <div class="card-body">
 

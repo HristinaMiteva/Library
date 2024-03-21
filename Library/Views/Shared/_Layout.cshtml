@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Library.styles.css" asp-append-version="true" />
 </head>
-<body style="background-color:#E66C2C">
+<body style="background-color:#FAF884">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-gradient border-bottom box-shadow mb-3" style="background-color:#FFAE42">
 
@@ -17,6 +17,7 @@
                     <img src="~/image/731b389c-374b-43bf-88ed-45a5a9134ffa-removebg-preview.png" class="img-fluid">
                 </div>
             </a>
+
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +25,25 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <b>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 20px;">Home</a>
-                        </li>
-                        </b>
-
+                        
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 20px;">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookFavorite" style="font-size: 20px;">Favorites</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookRead" style="font-size: 20px;">Read</a>
+                            </li>
+                        }
+                        else 
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Login" style="font-size: 20px;">Home</a>
+                            </li>
+                        }
                         
                     </ul>
                     <partial name="_LoginPartial" />
