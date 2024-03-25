@@ -14,5 +14,7 @@ namespace Library.Contracts
         Task FavoriteBookAsync(Guid id, User user);
         Task<IEnumerable<BooksViewModel>> BookFavoriteAsync(User user);
         Task DeleteBookAsync(Guid id);
+
+        Task RemoveFromFavoiretesAsync(Guid bookId, User user);
     }
 }

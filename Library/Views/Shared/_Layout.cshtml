@@ -17,7 +17,6 @@
                     <img src="~/image/731b389c-374b-43bf-88ed-45a5a9134ffa-removebg-preview.png" class="img-fluid">
                 </div>
             </a>
-
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -29,19 +28,65 @@
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 15px;">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index" style="font-size: 15px;">
+                                    Home
+                                </a>
+
+                                <style>
+                                    .nav-link:hover {
+                                        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                    }
+                                </style>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookFavorite" style="font-size: 15px;">Favorites</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookFavorite" style="font-size: 15px;">
+                                  Favorites
+                                </a>
+
+                                <style>
+                                    .nav-link:hover {
+                                        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                    }
+                                </style>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookRead" style="font-size: 15px;">Read</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="BookRead" style="font-size: 15px;">
+                                    Read
+                                </a>
+
+                                <style>
+                                    .nav-link:hover {
+                                        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                    }
+                                </style>
                             </li>
 
-                            @if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
+                            @if (User.IsInRole("Administrator")|| User.IsInRole("Writer"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Index" style="font-size: 15px;">Publishing Houses</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Index" style="font-size: 15px;">
+                                        Publishing Houses
+                                    </a>
+
+                                    <style>
+                                        .nav-link:hover {
+                                            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                        }
+                                    </style>
+                                </li>
+                            }
+                            @if(User.IsInRole("Administartor"))
+                            {
+                                <li class="nav-item">
+                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MakeRole" style="font-size: 15px;">
+                                        Add Role
+                                    </a>
+
+                                    <style>
+                                        .nav-link:hover {
+                                            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                        }
+                                    </style>
                                 </li>
                             }
 
@@ -49,7 +94,15 @@
                         else 
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Login" style="font-size: 15px;">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login" style="font-size: 15px;">
+                                   Home
+                                </a>
+
+                                <style>
+                                    .nav-link:hover {
+                                        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                                    }
+                                </style>
                             </li>
                         }
                         

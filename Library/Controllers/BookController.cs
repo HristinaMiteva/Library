@@ -5,6 +5,7 @@ using Library.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace Library.Controllers
 {
@@ -66,7 +67,7 @@ namespace Library.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "Writer, Reader")]
+        [Authorize(Roles = "Writer, Reader, Administrator")]
         public async Task<IActionResult> BookRead()
         {
             var user = await userManager.GetUserAsync(User);
@@ -115,6 +116,24 @@ namespace Library.Controllers
         {
             await bookServices.DeleteBookAsync(id);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Writer, Reader")]
+        public async Task<IActionResult> RemoveFromFavorites(Guid bookId)
+        {
+            User user = await userManager.GetUserAsync(User);
+
+            try
+            {
+                await this.bookServices.RemoveFromFavoiretesAsync(bookId, user);
+            }
+            catch (ArgumentNullException ex) 
+            { 
+                ModelState.AddModelError("", ex.Message);
+            }
+
+            return RedirectToAction("BookFavorite");
         }
     }
 }

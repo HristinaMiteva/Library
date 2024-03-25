@@ -28,6 +28,7 @@
                 </td>
                 <td>@book.PublishingYear</td>
                 @*  <td>@book.PublisherName</td>*@
+                <td> <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning">Remove</a></td>
             </tr>
         }
     </tbody>

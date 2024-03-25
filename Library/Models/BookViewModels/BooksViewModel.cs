@@ -4,7 +4,7 @@ namespace Library.Models.BookViewModels
 {
     public class BooksViewModel
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [Required]
         [StringLength(100, MinimumLength = 5)]
         public string Title { get; set; }

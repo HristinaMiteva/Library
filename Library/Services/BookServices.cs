@@ -129,6 +129,7 @@ namespace Library.Services
                 var books = userWithBooks.Favorites
                     .Select(b => new BooksViewModel()
                     {
+                        Id = b.BookId,
                         Title = b.Book.Title,
                         Author = b.Book.Author,
                         Pages = b.Book.Pages,
@@ -156,6 +157,22 @@ namespace Library.Services
             {
                 throw new ArgumentNullException();
             }
+        }
+
+        public async Task RemoveFromFavoiretesAsync(Guid bookId, User user)
+        {
+            var favourite = await this.context.Favorites.Include(favorite => favorite.Book)
+                                                            .Include(favourite => favourite.User)
+                                                            .Where(favourite => favourite.BookId == bookId && favourite.User == user)
+                                                            .FirstOrDefaultAsync();
+
+            if (favourite != null)
+            {
+                this.context.Favorites.Remove(favourite);
+                await this.context.SaveChangesAsync();
+            }
+
+            else throw new ArgumentNullException();
         }
     }
 }
