@@ -5,6 +5,7 @@ using Library.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.VisualStudio;
 using System.Runtime.InteropServices;
 
 namespace Library.Controllers
@@ -25,17 +26,26 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await bookServices.GetAllAsync();
-
             if (!User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("Login", "Account");
             }
             else
             {
-                return View(model);
+                return View(await this.bookServices.GetAllAsync());
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(string bookname)
+        {
+            try
+            {
+                return View(await this.bookServices.SearchedBooksAsync(bookname));
+            }
+            catch (ArgumentNullException) { return View(await this.bookServices.GetAllAsync()); }
+        }
+
+       
 
         [HttpGet]
         [Authorize(Roles = "Writer, Redactor, Administrator")]

@@ -1,6 +1,7 @@
 ﻿using Library.Data.Models;
 using Library.Models.BookViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 
 namespace Library.Contracts
 {
@@ -16,5 +17,7 @@ namespace Library.Contracts
         Task DeleteBookAsync(Guid id);
 
         Task RemoveFromFavoiretesAsync(Guid bookId, User user);
+
+        Task<IEnumerable<BooksViewModel>> SearchedBooksAsync(string bookName);
     }
 }

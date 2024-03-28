@@ -174,5 +174,31 @@ namespace Library.Services
 
             else throw new ArgumentNullException();
         }
+
+        public async Task<IEnumerable<BooksViewModel>> SearchedBooksAsync(string bookName)
+        {
+            if (String.IsNullOrEmpty(bookName))
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                var searchedItems = await this.context.Books.Include(book => book.Publisher)
+                                                            .Where(book => book.Title.ToLower().Contains(bookName.ToLower()))
+                                                            .ToListAsync();
+
+                return searchedItems.Select(b => new BooksViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    Pages = b.Pages,
+                    ISBN = b.ISBN,
+                    Image = b.Image,
+                    PublishingYear = b.PublishingYear,
+                    PublisherName = b?.Publisher.Name
+                });
+            }
+        }
     }
 }
