@@ -67,7 +67,7 @@ namespace Library.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        [Authorize(Roles = "Writer, Administrator, Reader")]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> ReadBook(Guid id)
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
@@ -77,7 +77,7 @@ namespace Library.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "Writer, Reader, Administrator")]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> BookRead()
         {
             var user = await userManager.GetUserAsync(User);

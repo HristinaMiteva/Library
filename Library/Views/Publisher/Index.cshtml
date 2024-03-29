@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<PublishersViewModel>
 
-<h1 style="color:#FFAE42">Publishing house:</h1>
+<h1 style="color:#F88017">Publishing houses:</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th> Id </th>
             <th>Name</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -14,10 +14,16 @@
         @foreach (var publisher in this.Model)
         {
             <tr>
-                <th>@publisher.Id</th>
                 <td>@publisher.Name</td>
+                <td></td>
                 <td>
-                     <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-warning">Delete</a>
+
+                    <a asp-controller="Publisher" asp-action="Delete" asp-route-bookId="@publisher.Id" class="btn btn-warning" style="background-color:#F88017;
+                        transition: background-color 0.3s ease; display: inline-block;
+                        padding: 0.5em 1em; text-decoration: none; color: white; border:none"
+                   onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#F88017'">
+                        Delete
+                    </a>
                 </td>
             </tr>
         }

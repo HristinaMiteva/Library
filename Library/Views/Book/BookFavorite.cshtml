@@ -4,31 +4,36 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>Title</th>
             <th>Date of reading:</th>
             <th>Pages</th>
             <th>Author:</th>
             <th>ISBN</th>
-            <th>BookCover</th>
             <th>Publishing year:<th>
-                    @*<th>Publisher:</th>*@
         </tr>
     </thead>
     <tbody>
         @foreach (BooksViewModel book in this.Model)
         {
             <tr>
+                <td>
+                    <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100">
+                </td>
                 <td>@book.Title</td>
                 <td>@DateTime.Now.ToString()</td>
                 <td>@book.Pages</td>
                 <td>@book.Author</td>
                 <td>@book.ISBN</td>
-                <td>
-                    <img class="card-ing-top" src="@book.Image" alt="Book Image" height="80" width="50">
-                </td>
                 <td>@book.PublishingYear</td>
-                @*  <td>@book.PublisherName</td>*@
-                <td> <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning">Remove</a></td>
+                <td>
+                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning" style="background-color:#FFAE42;
+                        transition: background-color 0.3s ease; display: inline-block; 
+                        padding: 0.5em 1em; text-decoration: none; color: white; border:none" 
+                        onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#FFAE42'">Remove
+                    </a>
+                </td>
+
             </tr>
         }
     </tbody>
