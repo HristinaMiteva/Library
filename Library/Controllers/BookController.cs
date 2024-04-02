@@ -71,10 +71,17 @@ namespace Library.Controllers
         public async Task<IActionResult> ReadBook(Guid id)
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
-            await this.bookServices.ReadBookAsync(id, user);
 
-            return RedirectToAction("Index", "Home");
+            try 
+            { 
+                await this.bookServices.ReadBookAsync(id, user);
+            }
+            catch(Exception) 
+            {
+                TempData["message"] = "Book is already marked as read!";
+            }
 
+            return RedirectToAction("Index");
         }
         [HttpGet]
         [Authorize(Roles = "Writer, Reader")]
@@ -89,7 +96,7 @@ namespace Library.Controllers
             catch (Exception ex) { ModelState.AddModelError("", ex.Message); }
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
 
 
         }
@@ -98,9 +105,17 @@ namespace Library.Controllers
         public async Task<IActionResult> FavoriteBook(Guid id)
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
-            await this.bookServices.FavoriteBookAsync(id, user);
 
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await this.bookServices.FavoriteBookAsync(id, user);
+            }
+            catch (Exception)
+            {
+                TempData["message"] = "Book is already marked as favourite!";
+            }
+
+            return RedirectToAction("Index");
 
         }
         [HttpGet]

@@ -27,8 +27,8 @@
 <div class="text-center row">
     @foreach (var book in Model)
     {
-        <div class="card col-4" style="width: 20rem; background-color:#FFAE42; padding:4px; margin:5px; border-radius:15px">
-            <img class="card-img-top" src="@book.Image" height="350" alt="Book Image">
+        <div class="card col-4" style="width: 20rem; background-color:#FFAE42; padding:10px; margin:5px; border-radius:10px">
+            <img class="card-img-top" src="@book.Image" height="450" alt="Book Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@book.Title</h5>
@@ -40,17 +40,28 @@
             </div>
             @if (User.IsInRole("Reader") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
             {
-                <form class="input-group-sm" asp-controller="Book" asp-action="FavoriteBook" asp-route-id="@book.Id" method="post">
-                    <input type="submit" value="Mark as favorite" class="fs-6 btn btn-success mb-3 p-2" />
-                </form>
-                <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">
-                    <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2" style="background-color:#FF8C00; border:none; border-radius:10px
-                        transition: background-color 0.3s ease; display: inline-block;
-                        padding: 0.5em 1em; text-decoration: none; color: white; border:none"
-                   onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#FF8C00'" />
-                </form>
-               
+
+
+                <div style="display: inline-block;">
+                    <form class="input-group-sm" asp-controller="Book" asp-action="FavoriteBook" asp-route-id="@book.Id" method="post">
+                        <button type="submit" class="fs-6 btn btn-success mb-3 p-2" style="border-radius: 50%; background-color:#FF7722; border-color:#FF7722;
+            transition: background-color 0.3s ease; padding: 0.5em 1em; text-decoration: none;
+            color: darkred; border:none; width: 50px; height: 50px; font-size: 24px;"
+                        onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#FF7722'">
+                            <span style="font-size: 24px;">♡</span>
+                        </button>
+                    </form>
+
+                    <form class="input-group-sm" asp-controller="Book" asp-action="ReadBook" asp-route-id="@book.Id" method="post">
+                        <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2" style="background-color:#FF7722; border:none;
+            transition: background-color 0.3s ease; display: inline-block;
+            padding: 0.5em 1em; text-decoration: none; color: white; border:none"
+                       onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#FF7722'" />
+                    </form>
+                </div>
+
             }
+
             @if (User.IsInRole("Redactor") || User.IsInRole("Writer") || User.IsInRole("Administrator"))
             {
                 <a asp-controller="Book" asp-action="Delete" asp-route-bookId="@book.Id" class="btn btn-warning" style="background-color:#F88017;
@@ -62,9 +73,9 @@
 
 
 
-              
+ 
             }
         </div>
-
+        
     }
 </div>
