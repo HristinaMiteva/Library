@@ -67,7 +67,7 @@ namespace Library.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        [Authorize(Roles = "Writer, Reader")]
+        [Authorize(Roles = "Writer, Reader, Redactor")]
         public async Task<IActionResult> ReadBook(Guid id)
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
@@ -84,7 +84,7 @@ namespace Library.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        [Authorize(Roles = "Writer, Reader")]
+        [Authorize(Roles = "Writer, Reader, Redactor")]
         public async Task<IActionResult> BookRead()
         {
             var user = await userManager.GetUserAsync(User);
@@ -101,7 +101,7 @@ namespace Library.Controllers
 
         }
         [HttpPost]
-        [Authorize(Roles = "Writer, Reader")]
+        [Authorize(Roles = "Writer, Reader, Redactor")]
         public async Task<IActionResult> FavoriteBook(Guid id)
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
@@ -119,7 +119,7 @@ namespace Library.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "Writer, Reader")]
+        [Authorize(Roles = "Writer, Reader, Redactor")]
         public async Task<IActionResult> BookFavorite()
         {
             var user = await userManager.GetUserAsync(User);
@@ -179,6 +179,11 @@ namespace Library.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> Quiz2()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz3()
         {
             return View();
         }
