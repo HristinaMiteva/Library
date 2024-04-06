@@ -8,8 +8,8 @@
 <body>
     <div id="quiz-container">
         @{
-            var viewModel = new QuizViewModel(); // Creating an instance of QuizViewModel
-            await Html.RenderPartialAsync("QuizCard", viewModel); // Rendering the partial view with the model
+            var viewModel = new Quiz2ViewModel(); // Creating an instance of QuizViewModel
+            await Html.RenderPartialAsync("QuizCard2", viewModel); // Rendering the partial view with the model
         }
     </div>
 </body>

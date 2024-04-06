@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 
-    QuizViewModel viewModel = new QuizViewModel();
 }
 
 <!DOCTYPE html>
@@ -12,12 +11,10 @@
     <title>@ViewData["Title"]</title>
     <style>
         body {
-            /* Set background image for the body */
             background-image: url('https://cdn.pixabay.com/photo/2016/02/16/21/07/books-1204029_1280.jpg');
-            background-size: cover; /* Adjust to 'contain' or other values as needed */
-            background-position: center center; /* Adjust position as needed */
-            background-repeat: no-repeat; /* Prevent repeating of the image */
-            /* You can also set other styles for the body */
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat; 
             margin: 0;
             padding: 0;
             font-family: Calligrapher, sans-serif;
@@ -32,11 +29,10 @@
         }
 
         .background-container {
-            /* Set styles for the container with the background image */
             background-image: url('https://wallpapercave.com/wp/wp11726455.jpg');
-            background-size: cover; /* Adjust to 'contain' or other values as needed */
-            background-position: center center; /* Adjust position as needed */
-            background-repeat: no-repeat; /* Prevent repeating of the image */
+            background-size: cover;
+            background-position: center center; 
+            background-repeat: no-repeat; 
         }
     </style>
 </head>
@@ -49,13 +45,14 @@
         </p>
     </div>
     <center>
-        <!-- Use a div or another container for the background image -->
         <div class="background-container">
-            <!-- Your content goes here -->
         </div>
     </center>
 </body>
 </html>
-<center><a asp-controller="Book" asp-action="AllQuizes" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quizes</a></center>
+   <center>
+    <a asp-controller="Book" asp-action="AllQuizes" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">
+        Quizes
+    </a>
+   </center>
 
-@*<partial name="QuizCard" model="@viewModel" />*@

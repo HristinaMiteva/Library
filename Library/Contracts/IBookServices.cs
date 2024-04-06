@@ -20,6 +20,7 @@ namespace Library.Contracts
 
         Task<IEnumerable<BooksViewModel>> SearchedBooksAsync(string bookName);
         Task<IEnumerable<BooksViewModel>> GetAllQuizesAsync();
-        Task<IEnumerable<BooksViewModel>> QuizAsync();
+      //  Task<IEnumerable<BooksViewModel>> QuizAsync();
+        //Task<IEnumerable<BooksViewModel>> Quiz2Async();
     }
 }

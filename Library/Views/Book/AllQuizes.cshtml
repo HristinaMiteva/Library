@@ -14,16 +14,22 @@
     <tbody>
         @foreach (var book in this.Model)
         {
-            <tr>
-                
-                <td> <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100"></td>
-                <td>@book.Title
-                    <a asp-controller="Book" asp-action="Quiz" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quiz</a></td>
-                <td>
-                    
-                   
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100">
+                    </td>
+                    <td>@book.Title</td>
+                    <td>
+                            @if (book.Title == "The Tale of Jemima Puddle-Duck")
+                            {
+                            <a asp-controller="Book" asp-action="Quiz" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quiz</a>
+                            }
+                            @if (book.Title == "The Secret Garden")
+                            {
+                            <a asp-controller="Book" asp-action="Quiz2" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quiz</a>
+                            }
+                    </td>
+                </tr>
         }
     </tbody>
 </table>

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<BooksViewModel>
 
-
+<head>
+    <link rel="stylesheet" href="BookFavorite.cshtml.css">
+</head>
 <table class="table">
     <thead>
         <tr>
@@ -10,7 +12,7 @@
             <th>Pages</th>
             <th>Author:</th>
             <th>ISBN</th>
-            <th>Publishing year:<th>
+            <th>Publishing year:</th>
         </tr>
     </thead>
     <tbody>
@@ -27,13 +29,8 @@
                 <td>@book.ISBN</td>
                 <td>@book.PublishingYear</td>
                 <td>
-                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning" style="background-color:#FFAE42;
-                        transition: background-color 0.3s ease; display: inline-block; 
-                        padding: 0.5em 1em; text-decoration: none; color: white; border:none" 
-                        onmouseover="this.style.backgroundColor='#FFD89C'" onmouseout="this.style.backgroundColor='#FFAE42'">Remove
-                    </a>
+                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning remove-favorite-button">Remove</a>
                 </td>
-
             </tr>
         }
     </tbody>

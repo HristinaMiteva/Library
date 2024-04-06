@@ -175,8 +175,12 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<IActionResult> Quiz()
         {
-            return View(await this.bookServices.QuizAsync());
+            return View();
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Quiz2()
+        {
+            return View();
+        }
     }
 }

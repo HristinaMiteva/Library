@@ -217,7 +217,7 @@ namespace Library.Services
                     PublisherName = b?.Publisher.Name
                 });
         }
-        public async Task<IEnumerable<BooksViewModel>> QuizAsync()
+      /*  public async Task<IEnumerable<BooksViewModel>> QuizAsync()
         {
             var entities = await context.Books.Include(book => book.Publisher).ToListAsync();
             return entities
@@ -233,5 +233,21 @@ namespace Library.Services
                     PublisherName = b?.Publisher.Name
                 });
         }
+       /* public async Task<IEnumerable<BooksViewModel>> Quiz2Async()
+        {
+            var entities = await context.Books.Include(book => book.Publisher).ToListAsync();
+            return entities
+                .Select(b => new BooksViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    Pages = b.Pages,
+                    ISBN = b.ISBN,
+                    Image = b.Image,
+                    PublishingYear = b.PublishingYear,
+                    PublisherName = b?.Publisher.Name
+                });
+        }*/
     }
 }
