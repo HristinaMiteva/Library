@@ -1,5 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+    QuizViewModel viewModel = new QuizViewModel();
 }
 
 <!DOCTYPE html>
@@ -54,3 +56,6 @@
     </center>
 </body>
 </html>
+<center><a asp-controller="Book" asp-action="AllQuizes" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quizes</a></center>
+
+@*<partial name="QuizCard" model="@viewModel" />*@

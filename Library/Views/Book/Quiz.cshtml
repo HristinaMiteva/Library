@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <!-- Include necessary CSS and scripts here -->
+</head>
+<body>
+    <div id="quiz-container">
+        @{
+            var viewModel = new QuizViewModel(); // Creating an instance of QuizViewModel
+            await Html.RenderPartialAsync("QuizCard", viewModel); // Rendering the partial view with the model
+        }
+    </div>
+    <!-- Include necessary scripts here -->
+</body>
+</html>

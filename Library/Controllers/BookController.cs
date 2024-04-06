@@ -160,5 +160,23 @@ namespace Library.Controllers
 
             return RedirectToAction("BookFavorite");
         }
+        [HttpGet]
+        public async Task<IActionResult> AllQuizes()
+        {
+            if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View(await this.bookServices.GetAllQuizesAsync());
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz()
+        {
+            return View(await this.bookServices.QuizAsync());
+        }
+
     }
 }

@@ -19,5 +19,7 @@ namespace Library.Contracts
         Task RemoveFromFavoiretesAsync(Guid bookId, User user);
 
         Task<IEnumerable<BooksViewModel>> SearchedBooksAsync(string bookName);
+        Task<IEnumerable<BooksViewModel>> GetAllQuizesAsync();
+        Task<IEnumerable<BooksViewModel>> QuizAsync();
     }
 }

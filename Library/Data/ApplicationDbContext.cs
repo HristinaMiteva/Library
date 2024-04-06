@@ -17,15 +17,19 @@ namespace Library.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<UserBook> UserBooks { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Question> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new PublisherConfiguration());
             builder.ApplyConfiguration(new BookConfiguration());
             builder.Entity<UserBook>()
                 .HasKey(x => new { x.UserId, x.BookId });
+
             builder.Entity<Favorite>()
                 .HasKey(x => new { x.UserId, x.BookId });
             base.OnModelCreating(builder);
+
+            builder.Entity<Question>().Ignore(q => q.Options);
             
         }
 

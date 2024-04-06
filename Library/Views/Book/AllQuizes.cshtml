@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BooksViewModel>
+
+<h1 style="color:#F88017">Quizes:</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in this.Model)
+        {
+            <tr>
+                
+                <td> <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100"></td>
+                <td>@book.Title
+                    <a asp-controller="Book" asp-action="Quiz" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Quiz</a></td>
+                <td>
+                    
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

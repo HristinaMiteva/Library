@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body>
+    <h1 style="color:#FFAE42" style>Quiz for "The Tale of Jemima Puddle-Duck"</h1>
+
+    <div class="container">
+        <div class="quiz">
+            @foreach (var question in Model.Questions)
+            {
+                <div class="quiz-header">
+                    @question.QuestionTitle
+                </div>
+                <div class="quiz-body" data-correct-answer="@question.Answer">
+                    @foreach (var option in question.Options)
+                    {
+                        <div>
+                            <input type="radio" id="@($"option-{option}")" name="@($"question-{question.Id}")" value="@option">
+                            <label for="@($"option-{option}")">@option</label>
+                        </div>
+                    }
+                </div>
+            }
+
+            <!-- Submit button -->
+            <button type="button" id="submit-button">Submit</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="pb-3">
+            <div id="message" class="alert" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submit-button").addEventListener("click", function () {
+            var questions = document.querySelectorAll(".quiz-body");
+            var wrongQuestionNumbers = []; // Array to store numbers of wrong questions
+            var allQuestionsAnswered = true; // Flag to check if all questions have been answered
+
+            questions.forEach(function (question, index) {
+                var selectedOption = question.querySelector("input[type='radio']:checked");
+                var correctAnswer = question.getAttribute("data-correct-answer");
+
+                if (!selectedOption) {
+                    allQuestionsAnswered = false; // Set the flag to false if any question is not answered
+                    return; // Exit the loop for this question
+                }
+
+                if (selectedOption.value !== correctAnswer) {
+                    wrongQuestionNumbers.push(index + 1); // Question numbers start from 1, so adding 1 to index
+                }
+            });
+
+            var message = document.getElementById("message");
+
+            if (!allQuestionsAnswered) {
+                message.textContent = "Please answer all questions before submitting.";
+                message.classList.add("alert-danger");
+                message.style.display = "block";
+            } else if (wrongQuestionNumbers.length > 0) {
+                message.textContent = "Wrong answer(s) for question(s): " + wrongQuestionNumbers.join(", ");
+                message.classList.add("alert-danger");
+                message.style.display = "block";
+            } else {
+                message.textContent = "All answers are correct!";
+                message.classList.add("alert-success");
+                message.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
