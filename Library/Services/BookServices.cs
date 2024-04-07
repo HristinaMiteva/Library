@@ -136,6 +136,7 @@ namespace Library.Services
                         Author = b.Book.Author,
                         Pages = b.Book.Pages,
                         ISBN = b.Book.ISBN,
+                        Price= b.Book.Price,
                         Image = b.Book.Image,
                         PublishingYear = b.Book.PublishingYear,
                         PublisherName = b.Book?.Publisher?.Name
@@ -247,6 +248,65 @@ namespace Library.Services
                 }).ToList();
             }
         }
+
+        public async Task<IEnumerable<BooksViewModel>> FindBooksByPublishingHouseAsync(string publishingHouse)
+        {
+            if (String.IsNullOrEmpty(publishingHouse))
+            {
+                throw new ArgumentNullException(nameof(publishingHouse), "Publishing house cannot be null or empty.");
+            }
+            else
+            {
+                var searchedItems = await this.context.Books
+                    .Include(book => book.Publisher)
+                    .Where(book => book.Publisher.Name.ToLower().Contains(publishingHouse.ToLower()))
+                    .ToListAsync();
+
+                return searchedItems.Select(b => new BooksViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    Pages = b.Pages,
+                    ISBN = b.ISBN,
+                    Image = b.Image,
+                    Price = b.Price,
+                    PublishingYear = b.PublishingYear,
+                    PublisherName = b.Publisher?.Name
+                }).ToList();
+            }
+        }
+
+        public async Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(string minPrice, string maxPrice)
+        {
+            if (string.IsNullOrEmpty(minPrice) || string.IsNullOrEmpty(maxPrice))
+            {
+                throw new ArgumentNullException("Price range cannot be empty.");
+            }
+
+            // Convert string prices to decimal
+            decimal minPriceValue = decimal.Parse(minPrice);
+            decimal maxPriceValue = decimal.Parse(maxPrice);
+
+            var searchedItems = await this.context.Books
+                .Include(book => book.Publisher)
+                .Where(book => decimal.Parse(book.Price) >= minPriceValue && decimal.Parse(book.Price) <= maxPriceValue)
+                .ToListAsync();
+
+            return searchedItems.Select(b => new BooksViewModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                Pages = b.Pages,
+                ISBN = b.ISBN,
+                Image = b.Image,
+                Price = b.Price,
+                PublishingYear = b.PublishingYear,
+                PublisherName = b.Publisher?.Name
+            });
+        }
+
 
     }
 }

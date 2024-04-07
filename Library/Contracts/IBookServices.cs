@@ -15,12 +15,12 @@ namespace Library.Contracts
         Task FavoriteBookAsync(Guid id, User user);
         Task<IEnumerable<BooksViewModel>> BookFavoriteAsync(User user);
         Task DeleteBookAsync(Guid id);
-
         Task RemoveFromFavoiretesAsync(Guid bookId, User user);
-
         Task<IEnumerable<BooksViewModel>> SearchedBooksAsync(string bookName);
         Task<IEnumerable<BooksViewModel>> GetAllQuizesAsync();
         Task<IEnumerable<BooksViewModel>> FindBooksByAuthorAsync(string author);
+        Task<IEnumerable<BooksViewModel>> FindBooksByPublishingHouseAsync(string publishingHouse);
+        Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(string minPrice, string maxPrice);
 
     }
 }

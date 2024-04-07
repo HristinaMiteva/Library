@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BooksViewModel>
+
+<form asp-action="FindByPriceRange" method="post">
+    <div>
+        <label for="minPrice">Minimum Price:</label>
+        <input type="text" id="minPrice" name="minPrice">
+    </div>
+    <div>
+        <label for="maxPrice">Maximum Price:</label>
+        <input type="text" id="maxPrice" name="maxPrice">
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Publishing Year</th>
+                <th>Publisher Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Pages</td>
+                    <td>@book.ISBN</td>
+                    <td>@book.Price</td>
+                    <td>@book.PublishingYear</td>
+                    <td>@book.PublisherName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

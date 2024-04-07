@@ -9,9 +9,10 @@
             <th></th>
             <th>Title</th>
             <th>Pages</th>
-            <th>Author:</th>
+            <th>Author</th>
             <th>ISBN</th>
-            <th>Publishing year:</th>
+            <th>Publishing year</th>
+            <th>Price</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@
                 <td>@book.Author</td>
                 <td>@book.ISBN</td>
                 <td>@book.PublishingYear</td>
+                <td>@book.Price (lv.)</td>
                 <td>
                     <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning remove-favorite-button">Remove</a>
                 </td>

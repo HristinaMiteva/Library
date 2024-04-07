@@ -237,6 +237,79 @@ namespace Library.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public IActionResult FindByPublishingHouse()
+        {
+            if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FindByPublishingHouse(string publishingHouse)
+        {
+            try
+            {
+                var books = await this.bookServices.FindBooksByPublishingHouseAsync(publishingHouse);
+                if (books.Any())
+                {
+                    ViewBag.PublishingHouse = publishingHouse;
+                    return View(books);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "No books found for the given house.");
+                    return View();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                ModelState.AddModelError(string.Empty, "House cannot be empty.");
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult FindByPriceRange()
+        {
+            if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FindByPriceRange(string minPrice, string maxPrice)
+        {
+            try
+            {
+                var books = await this.bookServices.FindBooksByPriceRangeAsync(minPrice, maxPrice);
+                if (books.Any())
+                {
+                    return View(books);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "No books found in the given price range.");
+                    return View();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                ModelState.AddModelError(string.Empty, "Price range cannot be empty.");
+                return View();
+            }
+        }
+
 
     }
 }
