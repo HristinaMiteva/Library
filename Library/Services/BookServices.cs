@@ -27,6 +27,7 @@ namespace Library.Services
                     Author = b.Author,
                     Pages = b.Pages,
                     ISBN = b.ISBN,
+                    Price = b.Price,
                     Image = b.Image,
                     PublishingYear = b.PublishingYear,
                     PublisherName = b?.Publisher.Name
@@ -47,6 +48,7 @@ namespace Library.Services
                 Author = model.Author,
                 Pages= model.Pages,
                 ISBN = model.ISBN,
+                Price = model.Price,
                 Image = model.Image,
                 PublishingYear = model.PublishingYear,
                 PublisherId = model.PublisherId
@@ -217,11 +219,21 @@ namespace Library.Services
                     PublisherName = b?.Publisher.Name
                 });
         }
-      /*  public async Task<IEnumerable<BooksViewModel>> QuizAsync()
+
+        public async Task<IEnumerable<BooksViewModel>> FindBooksByAuthorAsync(string author)
         {
-            var entities = await context.Books.Include(book => book.Publisher).ToListAsync();
-            return entities
-                .Select(b => new BooksViewModel
+            if (String.IsNullOrEmpty(author))
+            {
+                throw new ArgumentNullException(nameof(author), "Author cannot be null or empty.");
+            }
+            else
+            {
+                var searchedItems = await this.context.Books
+                    .Include(book => book.Publisher)
+                    .Where(book => book.Author.ToLower().Contains(author.ToLower()))
+                    .ToListAsync();
+
+                return searchedItems.Select(b => new BooksViewModel
                 {
                     Id = b.Id,
                     Title = b.Title,
@@ -229,25 +241,12 @@ namespace Library.Services
                     Pages = b.Pages,
                     ISBN = b.ISBN,
                     Image = b.Image,
+                    Price = b.Price,
                     PublishingYear = b.PublishingYear,
-                    PublisherName = b?.Publisher.Name
-                });
+                    PublisherName = b.Publisher?.Name
+                }).ToList();
+            }
         }
-       /* public async Task<IEnumerable<BooksViewModel>> Quiz2Async()
-        {
-            var entities = await context.Books.Include(book => book.Publisher).ToListAsync();
-            return entities
-                .Select(b => new BooksViewModel
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Author = b.Author,
-                    Pages = b.Pages,
-                    ISBN = b.ISBN,
-                    Image = b.Image,
-                    PublishingYear = b.PublishingYear,
-                    PublisherName = b?.Publisher.Name
-                });
-        }*/
+
     }
 }

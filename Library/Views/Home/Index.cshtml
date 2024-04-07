@@ -36,7 +36,7 @@
         }
     </style>
 </head>
-<body>
+@*<body>
     <div class="text-center">
         <p>
             <marquee behavior="scroll" direction="left">
@@ -48,11 +48,22 @@
         <div class="background-container">
         </div>
     </center>
-</body>
+</body>*@
 </html>
+ @if (User?.Identity?.IsAuthenticated ?? false)
+ {
    <center>
     <a asp-controller="Book" asp-action="AllQuizes" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">
         Quizes
     </a>
    </center>
+ }
+  else
+ {
+    <center>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">
+            Quizes
+        </a>
+    </center>
+ }
 

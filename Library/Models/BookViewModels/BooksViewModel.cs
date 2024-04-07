@@ -16,6 +16,8 @@ namespace Library.Models.BookViewModels
         [StringLength(30)]
         public string ISBN { get; set; }
         [Required]
+        public string Price { get; set; }
+        [Required]
         public string Image { get; set; }
         [Required]
         public int PublishingYear { get; set; }

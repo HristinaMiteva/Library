@@ -42,6 +42,10 @@ namespace Library.Migrations
                     b.Property<int?>("Pages")
                         .HasColumnType("int");
 
+                    b.Property<string>("Price")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("PublisherId")
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
@@ -67,6 +71,7 @@ namespace Library.Migrations
                             ISBN = "0060254920",
                             Image = "https://upload.wikimedia.org/wikipedia/en/8/8d/Where_The_Wild_Things_Are_%28book%29_cover.jpg",
                             Pages = 48,
+                            Price = "12,10",
                             PublisherId = new Guid("5d2db36e-b584-4abf-a093-5b9ffe196486"),
                             PublishingYear = 1963,
                             Title = "Where the Wild Things Are"
@@ -78,6 +83,7 @@ namespace Library.Migrations
                             ISBN = "0399226907",
                             Image = "https://m.media-amazon.com/images/I/81n9Y6AGy6L._AC_UF1000,1000_QL80_.jpg",
                             Pages = 26,
+                            Price = "25,00",
                             PublisherId = new Guid("5d2db36e-b584-4abf-a093-5b9ffe196486"),
                             PublishingYear = 1969,
                             Title = "The Very Hungry Caterpillar"
@@ -89,6 +95,7 @@ namespace Library.Migrations
                             ISBN = "0060775858",
                             Image = "https://m.media-amazon.com/images/I/81E6tmYOD7L._AC_UF1000,1000_QL80_.jpg",
                             Pages = 32,
+                            Price = "20,00",
                             PublisherId = new Guid("5d2db36e-b584-4abf-a093-5b9ffe196486"),
                             PublishingYear = 1947,
                             Title = "Goodnight Moon"
@@ -100,6 +107,7 @@ namespace Library.Migrations
                             ISBN = "9780394800011",
                             Image = "https://upload.wikimedia.org/wikipedia/en/1/10/The_Cat_in_the_Hat.png",
                             Pages = 61,
+                            Price = "12,10",
                             PublisherId = new Guid("5d2db36e-b584-4abf-a093-5b9ffe196486"),
                             PublishingYear = 1957,
                             Title = "The Cat in the Hat"
@@ -111,6 +119,7 @@ namespace Library.Migrations
                             ISBN = "9780394800165",
                             Image = "https://m.media-amazon.com/images/I/71e4ln93HOL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 62,
+                            Price = "35,00",
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1960,
                             Title = "Green Eggs and Ham"
@@ -122,6 +131,7 @@ namespace Library.Migrations
                             ISBN = "9780590353427",
                             Image = "https://m.media-amazon.com/images/I/71-++hbbERL._AC_UF894,1000_QL80_.jpg",
                             Pages = 320,
+                            Price = "17,00",
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1997,
                             Title = "Harry Potter and the Sorcerer's Stone"
@@ -133,6 +143,7 @@ namespace Library.Migrations
                             ISBN = "9780142403877",
                             Image = "https://cdn.ozone.bg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/h/ad8a2ed668a51de9d6a0945e6ab4c650/the-gruffalo-30.jpg",
                             Pages = 32,
+                            Price = "15,50",
                             PublisherId = new Guid("36bda0c2-9ea8-4c67-a86f-f81486343f12"),
                             PublishingYear = 1999,
                             Title = "The Gruffalo"
@@ -144,6 +155,7 @@ namespace Library.Migrations
                             ISBN = "9780061124952",
                             Image = "https://www.artsofimagination.org/wp-content/uploads/2024/01/Charlottes-Web-cover-1.jpeg",
                             Pages = 192,
+                            Price = "20,00",
                             PublisherId = new Guid("36bda0c2-9ea8-4c67-a86f-f81486343f12"),
                             PublishingYear = 1952,
                             Title = "Charlotte's Web"
@@ -155,6 +167,7 @@ namespace Library.Migrations
                             ISBN = "9780723247708",
                             Image = "https://m.media-amazon.com/images/I/61ASCNFMAlL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 72,
+                            Price = "18,00",
                             PublisherId = new Guid("1ec7709f-f106-441d-b0d8-dbdc5d06971d"),
                             PublishingYear = 1902,
                             Title = "The Tale of Peter Rabbit"
@@ -166,6 +179,7 @@ namespace Library.Migrations
                             ISBN = "9780064471046",
                             Image = "https://m.media-amazon.com/images/I/81QUw81WcoL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 208,
+                            Price = "30,00",
                             PublisherId = new Guid("1ec7709f-f106-441d-b0d8-dbdc5d06971d"),
                             PublishingYear = 1950,
                             Title = "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe"
@@ -177,6 +191,7 @@ namespace Library.Migrations
                             ISBN = "9781853260025",
                             Image = "https://ik.imagekit.io/panmac/tr:f-auto,di-placeholder_portrait_aMjPtD9YZ.jpg,w-270/edition/9781447279990.jpg",
                             Pages = 96,
+                            Price = "18,10",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1865,
                             Title = "Alice's Adventures in Wonderland"
@@ -188,6 +203,7 @@ namespace Library.Migrations
                             ISBN = "9780525444435",
                             Image = "https://m.media-amazon.com/images/I/61x0v4ZahgL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 145,
+                            Price = "25,00",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1926,
                             Title = "Winnie-the-Pooh"
@@ -199,6 +215,7 @@ namespace Library.Migrations
                             ISBN = "9780064401883",
                             Image = "https://m.media-amazon.com/images/I/91qOXqI3aQL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 288,
+                            Price = "17,10",
                             PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
                             PublishingYear = 1911,
                             Title = "The Secret Garden"
@@ -210,6 +227,7 @@ namespace Library.Migrations
                             ISBN = "9780141321592",
                             Image = "https://m.media-amazon.com/images/I/81NDwdjGwSL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 320,
+                            Price = "15,00",
                             PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
                             PublishingYear = 1908,
                             Title = "Anne of Green Gables"
@@ -221,6 +239,7 @@ namespace Library.Migrations
                             ISBN = "9781503261206",
                             Image = "https://mir-s3-cdn-cf.behance.net/project_modules/hd/35a95226596057.5635798b56b8f.jpg",
                             Pages = 198,
+                            Price = "20,00",
                             PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
                             PublishingYear = 1911,
                             Title = "Peter Pan"
@@ -232,6 +251,7 @@ namespace Library.Migrations
                             ISBN = "9780141321127",
                             Image = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630642716i/5659.jpg",
                             Pages = 224,
+                            Price = "10,00",
                             PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
                             PublishingYear = 1908,
                             Title = "The Wind in the Willows"
@@ -243,6 +263,7 @@ namespace Library.Migrations
                             ISBN = "9780142410318",
                             Image = "https://m.media-amazon.com/images/I/81Dp5Of3zeL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 200,
+                            Price = "17,00",
                             PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
                             PublishingYear = 1964,
                             Title = "Charlie and the Chocolate Factory"
@@ -254,6 +275,7 @@ namespace Library.Migrations
                             ISBN = "9780448405209",
                             Image = "https://m.media-amazon.com/images/I/71pf9-VV4NL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 48,
+                            Price = "20,00",
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1930,
                             Title = "The Little Engine That Could"
@@ -265,6 +287,7 @@ namespace Library.Migrations
                             ISBN = "9780394823379",
                             Image = "https://www.thoughtco.com/thmb/TRDolGdhiKx7SLOZIBPLtIK3ipc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/lorax-597f13009abed50010c7da1d.jpg",
                             Pages = 72,
+                            Price = "15,10",
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1971,
                             Title = "The Lorax"
@@ -276,6 +299,7 @@ namespace Library.Migrations
                             ISBN = "9780060256654",
                             Image = "https://m.media-amazon.com/images/I/71wiGMKadmL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 64,
+                            Price = "12,10",
                             PublisherId = new Guid("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
                             PublishingYear = 1964,
                             Title = "The Giving Tree"
@@ -287,6 +311,7 @@ namespace Library.Migrations
                             ISBN = "9780064400565",
                             Image = "https://m.media-amazon.com/images/I/91a1ogh+5JL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 144,
+                            Price = "17,00",
                             PublisherId = new Guid("36bda0c2-9ea8-4c67-a86f-f81486343f12"),
                             PublishingYear = 1945,
                             Title = "Stuart Little"
@@ -298,6 +323,7 @@ namespace Library.Migrations
                             ISBN = "9780140564396",
                             Image = "https://upload.wikimedia.org/wikipedia/en/1/19/Madeline-1939.jpg",
                             Pages = 56,
+                            Price = "25,00",
                             PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
                             PublishingYear = 1939,
                             Title = "Madeline"
@@ -309,6 +335,7 @@ namespace Library.Migrations
                             ISBN = "9780395389492",
                             Image = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1638557399i/420282.jpg",
                             Pages = 32,
+                            Price = "20,10",
                             PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
                             PublishingYear = 1985,
                             Title = "The Polar Express"
@@ -320,6 +347,7 @@ namespace Library.Migrations
                             ISBN = "9780545215787",
                             Image = "https://m.media-amazon.com/images/I/81TU2o5NYOL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 32,
+                            Price = "12,10",
                             PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
                             PublishingYear = 1963,
                             Title = "Clifford the Big Red Dog"
@@ -331,6 +359,7 @@ namespace Library.Migrations
                             ISBN = "9780805047905",
                             Image = "https://m.media-amazon.com/images/I/81Ukrj-NTgL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 28,
+                            Price = "15,00",
                             PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
                             PublishingYear = 1967,
                             Title = "Brown Bear, Brown Bear, What Do You See?"
@@ -342,6 +371,7 @@ namespace Library.Migrations
                             ISBN = "9781442450707",
                             Image = "https://m.media-amazon.com/images/I/61rGNycNKbL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 40,
+                            Price = "15,10",
                             PublisherId = new Guid("5d24ced7-7e83-4dae-9b60-d559d9d96bb0"),
                             PublishingYear = 1989,
                             Title = "Chicka Chicka Boom Boom"
@@ -353,6 +383,7 @@ namespace Library.Migrations
                             ISBN = "9780140501735",
                             Image = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347517273i/231850.jpg",
                             Pages = 32,
+                            Price = "25,00",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1968,
                             Title = "Corduroy"
@@ -364,6 +395,7 @@ namespace Library.Migrations
                             ISBN = "9780060245863",
                             Image = "https://m.media-amazon.com/images/I/813csV5cPqL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 40,
+                            Price = "15,00",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1985,
                             Title = "If You Give a Mouse a Cookie"
@@ -375,6 +407,7 @@ namespace Library.Migrations
                             ISBN = "9781558580091",
                             Image = "https://m.media-amazon.com/images/I/91pdllYEUfL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 24,
+                            Price = "12,10",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1992,
                             Title = "The Rainbow Fish"
@@ -386,6 +419,7 @@ namespace Library.Migrations
                             ISBN = "9780670867332",
                             Image = "https://m.media-amazon.com/images/I/71Ku1Uk6VqL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 40,
+                            Price = "12,00",
                             PublisherId = new Guid("bb40bb66-099d-40ff-8994-d5dc15e3d97d"),
                             PublishingYear = 1962,
                             Title = "The Snowy Day"
@@ -397,6 +431,7 @@ namespace Library.Migrations
                             ISBN = "9780920236161",
                             Image = "https://m.media-amazon.com/images/I/71fZdpPbIML._AC_UF1000,1000_QL80_.jpg",
                             Pages = 32,
+                            Price = "15,00",
                             PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
                             PublishingYear = 1980,
                             Title = "The Paper Bag Princess"
@@ -408,6 +443,7 @@ namespace Library.Migrations
                             ISBN = "9780380002559",
                             Image = "https://m.media-amazon.com/images/I/81+AkzSB5hL._AC_UF1000,1000_QL80_.jpg",
                             Pages = 48,
+                            Price = "10,10",
                             PublisherId = new Guid("e04651b0-5913-4ee7-a691-cdb85933f3ee"),
                             PublishingYear = 1922,
                             Title = "The Velveteen Rabbit"
@@ -419,6 +455,7 @@ namespace Library.Migrations
                             ISBN = "9780723247784",
                             Image = "https://m.media-amazon.com/images/I/51YliB2gTfL._AC_UF894,1000_QL80_.jpg",
                             Pages = 64,
+                            Price = "12,10",
                             PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
                             PublishingYear = 1908,
                             Title = "The Tale of Jemima Puddle-Duck"
@@ -430,6 +467,7 @@ namespace Library.Migrations
                             ISBN = "9780394800188",
                             Image = "https://m.media-amazon.com/images/I/61GO+cnyq5L._AC_UF1000,1000_QL80_.jpg",
                             Pages = 72,
+                            Price = "20,00",
                             PublisherId = new Guid("e6dc8da9-4a57-4821-beb3-24117746b333"),
                             PublishingYear = 1960,
                             Title = "Are You My Mother?"

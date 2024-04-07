@@ -14,6 +14,8 @@ namespace Library.Data.Models
         public int? Pages { get; set; }
         public string? ISBN { get; set; }
         [Required]
+        public string Price { get; set; }
+        [Required]
         public string Image { get; set; }
         [Required]
         public int PublishingYear { get; set; }

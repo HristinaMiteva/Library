@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BooksViewModel>
+
+<head>
+    <link rel="stylesheet" href="Index.cshtml.css">
+</head>
+<body>
+    <div>
+        <form asp-action="FindByAuthor" id="search" method="post">
+            <div class="input-group md-form form-sm form-2 pl-0">
+                <input name="author" class="form-control my-0 py-1 red-border" type="text" placeholder="Search..." />
+                <div class="input-group-append">
+                    <span class="input-group-text red lighten-3" style="background-color:#FFAE42">
+                        <input type="submit" value="Search" style="border:none; background-color:#FFAE42" />
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Pages</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>
+                            <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100">
+                        </td>
+                        <td>@book.Title</td>
+                        <td>@book.Pages</td>
+                        <td>@book.Author</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+   
+</body>

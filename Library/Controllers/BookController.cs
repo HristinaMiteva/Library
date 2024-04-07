@@ -45,7 +45,7 @@ namespace Library.Controllers
             catch (ArgumentNullException) { return View(await this.bookServices.GetAllAsync()); }
         }
 
-       
+
 
         [HttpGet]
         [Authorize(Roles = "Writer, Redactor, Administrator")]
@@ -60,9 +60,11 @@ namespace Library.Controllers
         [Authorize(Roles = "Writer, Redactor, Administrator")]
         public async Task<IActionResult> Add(AddBookViewModel viewModel)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 ViewBag.PublisherId = this.bookServices.AddBookAsync();
-                return View(viewModel); }
+                return View(viewModel);
+            }
             await this.bookServices.AddBookAsync(viewModel);
             return RedirectToAction("Index", "Home");
         }
@@ -72,11 +74,11 @@ namespace Library.Controllers
         {
             var user = await userManager.FindByNameAsync(User.Identity?.Name);
 
-            try 
-            { 
+            try
+            {
                 await this.bookServices.ReadBookAsync(id, user);
             }
-            catch(Exception) 
+            catch (Exception)
             {
                 TempData["message"] = "Book is already marked as read!";
             }
@@ -139,9 +141,17 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await bookServices.DeleteBookAsync(id);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await bookServices.DeleteBookAsync(id);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred while deleting the book.");
+            }
         }
+
 
         [HttpGet]
         [Authorize(Roles = "Writer, Reader")]
@@ -153,8 +163,8 @@ namespace Library.Controllers
             {
                 await this.bookServices.RemoveFromFavoiretesAsync(bookId, user);
             }
-            catch (ArgumentNullException ex) 
-            { 
+            catch (ArgumentNullException ex)
+            {
                 ModelState.AddModelError("", ex.Message);
             }
 
@@ -187,5 +197,46 @@ namespace Library.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> Find()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult FindByAuthor()
+        {
+            if (!User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FindByAuthor(string author)
+        {
+            try
+            {
+                var books = await this.bookServices.FindBooksByAuthorAsync(author);
+                if (books.Any())
+                {
+                    return View(books);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "No books found for the given author.");
+                    return View();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                ModelState.AddModelError(string.Empty, "Author cannot be empty.");
+                return View();
+            }
+        }
+
     }
 }
