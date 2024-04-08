@@ -288,7 +288,7 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FindByPriceRange(string minPrice, string maxPrice)
+        public async Task<IActionResult> FindByPriceRange(int minPrice, int maxPrice)
         {
             try
             {

@@ -1,13 +1,45 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2016/02/16/21/07/books-1204029_1280.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: Calligrapher, sans-serif;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .inscription {
+            color: #FFA600;
+        }
+
+        .background-container {
+            background-image: url('https://wallpapercave.com/wp/wp11726455.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+    </style>
+   
+</head>
+<body>
+    <center>
+        <br />
     <a asp-controller="Book" asp-action="FindByAuthor" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Search by Author</a>
     <a asp-controller="Book" asp-action="FindByPublishingHouse" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Search by Publishing House</a>
     <a asp-controller="Book" asp-action="FindByPriceRange" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Search by Price</a>
-
-</head>
-<body>
+    </center>
 </body>
 </html>

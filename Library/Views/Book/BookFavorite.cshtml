@@ -27,7 +27,7 @@
                 <td>@book.Author</td>
                 <td>@book.ISBN</td>
                 <td>@book.PublishingYear</td>
-                <td>@book.Price (lv.)</td>
+                <td>@book.Price:f2 (lv.)</td>
                 <td>
                     <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning remove-favorite-button">Remove</a>
                 </td>

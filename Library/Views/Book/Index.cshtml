@@ -40,7 +40,7 @@
                 <p class="mb-0">ISBN: @book.ISBN</p>
                 <p class="mb-0">Year of publishing: @book.PublishingYear</p>
                 <p>Publisher: @book.PublisherName</p>
-                <p>Price: @book.Price (lv.)</p>
+                <p>Price: @book.Price:f2 (lv.)</p>
             </div>
             @if (User.IsInRole("Reader") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
             {
@@ -62,7 +62,7 @@
 
             @if (User.IsInRole("Redactor") || User.IsInRole("Writer") || User.IsInRole("Administrator"))
             {
-                    <a asp-controller="Book" asp-action="Delete" asp-route-bookId="@book.Id" class="btn btn-warning delete-button">
+                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-warning delete-button">
                         Delete
                     </a>
 

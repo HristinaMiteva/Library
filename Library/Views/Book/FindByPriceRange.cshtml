@@ -3,40 +3,48 @@
 <form asp-action="FindByPriceRange" method="post">
     <div>
         <label for="minPrice">Minimum Price:</label>
-        <input type="text" id="minPrice" name="minPrice">
+        <input type="number" id="minPrice" name="minPrice" value="0">
     </div>
+    <br />
     <div>
         <label for="maxPrice">Maximum Price:</label>
-        <input type="text" id="maxPrice" name="maxPrice">
+        <input type="number" id="maxPrice" name="maxPrice" value="0">
     </div>
-    <button type="submit">Search</button>
+  <div>
+    <button type="submit" style="background-color:#F88017; border:none; border-radius:5px">Search</button>
+    <style>
+        .nav-link:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+    </style>
+    </div>
 </form>
 
 @if (Model != null && Model.Any())
 {
-    <table>
+    <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>Title</th>
-                <th>Author</th>
                 <th>Pages</th>
-                <th>ISBN</th>
+                <th>Author</th>
+                <th>Publishing House</th>
                 <th>Price</th>
-                <th>Publishing Year</th>
-                <th>Publisher Name</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var book in Model)
             {
                 <tr>
+                    <td>
+                        <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100">
+                    </td>
                     <td>@book.Title</td>
-                    <td>@book.Author</td>
                     <td>@book.Pages</td>
-                    <td>@book.ISBN</td>
-                    <td>@book.Price</td>
-                    <td>@book.PublishingYear</td>
+                    <td>@book.Author</td>
                     <td>@book.PublisherName</td>
+                    <td>@book.Price (lv.)</td>
                 </tr>
             }
         </tbody>

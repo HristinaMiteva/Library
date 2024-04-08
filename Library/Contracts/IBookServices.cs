@@ -20,7 +20,7 @@ namespace Library.Contracts
         Task<IEnumerable<BooksViewModel>> GetAllQuizesAsync();
         Task<IEnumerable<BooksViewModel>> FindBooksByAuthorAsync(string author);
         Task<IEnumerable<BooksViewModel>> FindBooksByPublishingHouseAsync(string publishingHouse);
-        Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(string minPrice, string maxPrice);
+        Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(int minPrice, int maxPrice);
 
     }
 }
