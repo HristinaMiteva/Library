@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(LibraryDbContext))]
     [Migration("20240408070444_MigrationsDb")]
     partial class MigrationsDb
     {

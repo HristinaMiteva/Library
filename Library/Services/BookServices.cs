@@ -9,9 +9,9 @@ namespace Library.Services
 {
     public class BookServices : IBookServices
     {
-        private readonly ApplicationDbContext context;
+        private readonly LibraryDbContext context;
 
-        public BookServices(ApplicationDbContext context)
+        public BookServices(LibraryDbContext context)
         {
             this.context = context;
         }

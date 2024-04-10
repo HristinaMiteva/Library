@@ -13,7 +13,6 @@ namespace Library.Data.Models
         public string Author { get; set; }
         public int? Pages { get; set; }
         public string? ISBN { get; set; }
-        
         public double Price { get; set; }
         [Required]
         public string Image { get; set; }

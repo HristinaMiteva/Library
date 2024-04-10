@@ -6,11 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class LibraryDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private bool seedDB;
+        public LibraryDbContext(DbContextOptions<LibraryDbContext> options, bool seedDB=true)
             : base(options)
         {
+            if (this.Database.IsRelational())
+            {
+                this.Database.Migrate();
+            }
+            else
+            {
+                this.Database.EnsureCreated();
+            }
+            this.seedDB = seedDB;
         }
         public DbSet<Book> Books { get; set; }
         public DbSet<User> Users { get; set; }
@@ -20,8 +30,12 @@ namespace Library.Data
         public DbSet<Question> Questions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new PublisherConfiguration());
-            builder.ApplyConfiguration(new BookConfiguration());
+            if (seedDB)
+            {
+                builder.ApplyConfiguration(new PublisherConfiguration());
+                builder.ApplyConfiguration(new BookConfiguration());
+            }
+           
             builder.Entity<UserBook>()
                 .HasKey(x => new { x.UserId, x.BookId });
 

@@ -9,9 +9,9 @@ namespace Library.Services
     public class PublisherServices:IPublisherServices
 
     {
-        private readonly ApplicationDbContext context;
+        private readonly LibraryDbContext context;
 
-        public PublisherServices(ApplicationDbContext context)
+        public PublisherServices(LibraryDbContext context)
         {
             this.context = context;
         }
