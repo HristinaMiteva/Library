@@ -16,7 +16,7 @@ namespace Testing
         {
             SeedPublisher(context);
             SeedBook(context);
-
+            SeedUser(context);
 
             context.SaveChanges();
         }
@@ -54,7 +54,7 @@ namespace Testing
                 Price = 8.99,
                 Image = "https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg",
                 PublishingYear = 1963,
-                PublisherId = Guid.Parse("5d2db36e-b584-4abf-a093-5b9ffe196486")
+                PublisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6")
             };
             var book2 = new Book()
             {
@@ -66,7 +66,7 @@ namespace Testing
                 Price = 6.99,
                 Image = "https://m.media-amazon.com/images/I/81qsstEtrgL._AC_UF1000,1000_QL80_.jpg",
                 PublishingYear = 1969,
-                PublisherId = Guid.Parse("5d2db36e-b584-4abf-a093-5b9ffe196486")
+                PublisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6")
             };
             var book3 = new Book()
             {
@@ -78,11 +78,28 @@ namespace Testing
                 Price = 6.29,
                 Image = "https://m.media-amazon.com/images/I/91WuHblNkEL._AC_UF1000,1000_QL80_.jpg",
                 PublishingYear = 1947,
-                PublisherId = Guid.Parse("5d2db36e-b584-4abf-a093-5b9ffe196486")
+                PublisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6")
             };
             context.Books.Add(book1);
             context.Books.Add(book2);
             context.Books.Add(book3);
+        }
+        public static void SeedUser(LibraryDbContext context)
+        {
+            var user1 = new User()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Age = 30
+            };
+            var user2 = new User()
+            {
+                FirstName = "Alice",
+                LastName = "Smith",
+                Age = 25
+            };
+            context.Users.Add(user1);
+            context.Users.Add(user2);
         }
     }
 }

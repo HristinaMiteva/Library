@@ -279,15 +279,7 @@ namespace Library.Services
 
         public async Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(int minPrice, int maxPrice)
         {
-            /*if (string.IsNullOrEmpty(minPrice) || string.IsNullOrEmpty(maxPrice))
-            {
-                throw new ArgumentNullException("Price range cannot be empty.");
-            }*/
-
-            // Convert string prices to decimal
-            //decimal minPriceValue = maxPrice;
-            //decimal maxPriceValue = maxPrice;
-
+          
 
             var searchedItems = await this.context.Books
                 .Include(book => book.Publisher)

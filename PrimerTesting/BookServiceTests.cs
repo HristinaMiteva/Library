@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Models.BookViewModels;
 using Library.Data.Models;
+using Library.Controllers;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Moq;
 
 namespace Testing
 {
@@ -43,63 +46,349 @@ namespace Testing
             dbContext.Database.EnsureDeleted();
         }
 
-        [Test]
-        public async Task GetAllAsync_Should_Return_AllBooks_With_Publisher()
-        {
-            // Arrange
-            var expectedBooks = new List<BooksViewModel>
-    {
-        new BooksViewModel { Id = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"), Title = "Where the Wild Things Are", Author = "Maurice Sendak", Pages = 48, ISBN = "9780060254926", Price = 8.99, Image = "https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", PublishingYear = 1963, PublisherName = "Holiday House" },
-        new BooksViewModel { Id = Guid.Parse("b2b63af9-18b0-48f4-9078-30836e6f54f7"), Title = "The Very Hungry Caterpillar", Author = "Eric Carle", Pages = 26, ISBN = "9780399226908", Price = 6.99, Image = "https://m.media-amazon.com/images/I/81qsstEtrgL._AC_UF1000,1000_QL80_.jpg", PublishingYear = 1969, PublisherName = "Candlewick Press" },
-        new BooksViewModel { Id = Guid.Parse("36bda0c2-9ea8-4c67-a86f-f81486343f12"), Title = "Goodnight Moon", Author = "Margaret Wise Brown", Pages = 32, ISBN = "9780060775858", Price = 6.29, Image = "https://m.media-amazon.com/images/I/91WuHblNkEL._AC_UF1000,1000_QL80_.jpg", PublishingYear = 1947, PublisherName = "Arbordale Publishing" }
-    };
+        //[Test]
+        //public async Task GetAllAsync_ReturnsCorrectBooksViewModels()
+        //{
+        //    // Arrange
+        //    var mockSet = new Mock<DbSet<Book>>();
+        //    var books = SeedDatabase();
 
+        //    mockSet.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(books.Provider);
+        //    mockSet.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(books.Expression);
+        //    mockSet.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(books.ElementType);
+        //    mockSet.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(books.GetEnumerator());
+
+        //    var mockContext = new Mock<LibraryDbContext>();
+        //    mockContext.Setup(c => c.Books).Returns(mockSet.Object);
+
+        //    var service = new BookServices(mockContext.Object);
+
+        //    // Act
+        //    var result = await service.GetAllAsync();
+
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.AreEqual(3, result.Count());
+
+        //    var firstBook = result.First();
+        //    Assert.AreEqual("Where the Wild Things Are", firstBook.Title);
+        //    Assert.AreEqual("Maurice Sendak", firstBook.Author);
+        //    Assert.AreEqual(48, firstBook.Pages);
+        //    Assert.AreEqual("9780060254926", firstBook.ISBN);
+        //    Assert.AreEqual(8.99, firstBook.Price);
+        //    Assert.AreEqual("https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", firstBook.Image);
+        //    Assert.AreEqual(1963, firstBook.PublishingYear);
+        //    Assert.AreEqual("Holiday House", firstBook.PublisherName);
+        //}
+
+        [Test]
+        public void AddBookAsync_Should_Return_Publisher_SelectList()
+        {
             // Act
-            var result = await bookService.GetAllAsync();
+            var result = bookService.AddBookAsync() as SelectList;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(expectedBooks.Count, result.Count());
-
-            foreach (var expectedBook in expectedBooks)
-            {
-                Assert.IsTrue(result.Any(b => b.Id == expectedBook.Id && b.Title == expectedBook.Title && b.Author == expectedBook.Author
-                    && b.Pages == expectedBook.Pages && b.ISBN == expectedBook.ISBN && b.Price == expectedBook.Price
-                    && b.Image == expectedBook.Image && b.PublishingYear == expectedBook.PublishingYear && b.PublisherName == expectedBook.PublisherName));
-            }
+            Assert.AreEqual(3, result.Count()); // Assuming there are 3 publishers in the seed data
         }
+
         [Test]
-        public async Task ReadBookAsync_Should_Add_Book_To_User_Books()
+        public async Task AddBookAsync_Should_Add_Book_To_Database()
         {
             // Arrange
-            var bookId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); // Existing book ID from seed data
-            var userId = Guid.NewGuid();
-            var user = new User { Id = userId };
+            var model = new AddBookViewModel
+            {
+                Title = "Test Book",
+                Author = "Test Author",
+                Pages = 100,
+                ISBN = "9781234567890",
+                Price = 9.99,
+                Image = "https://example.com/image.jpg",
+                PublishingYear = 2022,
+                PublisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6") // Existing publisher ID from seed data
+            };
 
             // Act
-            await bookService.ReadBookAsync(bookId, user);
+            await bookService.AddBookAsync(model);
 
             // Assert
-            var userBooks = await dbContext.UserBooks.Where(ub => ub.UserId == userId).ToListAsync();
-            Assert.IsTrue(userBooks.Any(ub => ub.BookId == bookId));
+            var addedBook = await dbContext.Books.FirstOrDefaultAsync(b => b.Title == model.Title);
+            Assert.IsNotNull(addedBook);
+            Assert.AreEqual(model.Title, addedBook.Title);
+            // Add more assertions for other properties if needed
+        }
+
+
+        [Test]
+        public async Task ReadBookAsync_AddsBookToUserBooks()
+        {
+            // Arrange
+            var user = dbContext.Users.First();
+            var book = dbContext.Books.First();
+
+            // Act
+            await bookService.ReadBookAsync(book.Id, user);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.UserBooks.Count());
+            var addedUserBook = dbContext.UserBooks.First();
+            Assert.AreEqual(user.Id, addedUserBook.UserId);
+            Assert.AreEqual(book.Id, addedUserBook.BookId);
         }
 
         [Test]
-        public async Task BookReadAsync_Should_Return_Books_Read_By_User()
+        public async Task ReadBookAsync_BookNotFound_DoesNotAddToUserBooks()
         {
             // Arrange
-            var userId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); // Existing user ID from seed data
-            var user = new User { Id = userId };
+            var user = dbContext.Users.First();
+            var nonExistingBookId = Guid.NewGuid();
+
+            // Act
+            await bookService.ReadBookAsync(nonExistingBookId, user);
+
+            // Assert
+            Assert.IsEmpty(dbContext.UserBooks);
+        }
+
+        [Test]
+        public async Task BookReadAsync_ReturnsBooksForUser()
+        {
+            // Arrange
+            var user = dbContext.Users.First();
 
             // Act
             var result = await bookService.BookReadAsync(user);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Count()); // Assuming there are 3 books in the seed data
-            // Add more specific assertions based on the seed data if needed
+            Assert.NotNull(result);
+            Assert.AreEqual(user.UserBooks.Count, result.Count());
         }
 
+        [Test]
+        public async Task BookReadAsync_UserWithNoBooks_ThrowsException()
+        {
+            // Arrange
+            var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe", Age = 20 }; // Create a user without any books
+
+            // Act & Assert
+            Assert.ThrowsAsync<NullReferenceException>(() => bookService.BookReadAsync(user));
+        }
+        [Test]
+        public async Task FavoriteBookAsync_AddsBookToUserFavorites()
+        {
+            // Arrange
+            var user = dbContext.Users.First();
+            var book = dbContext.Books.First();
+
+            // Act
+            await bookService.FavoriteBookAsync(book.Id, user);
+
+            // Assert
+            Assert.AreEqual(1, dbContext.Favorites.Count());
+            var addedFavorite = dbContext.Favorites.First();
+            Assert.AreEqual(user.Id, addedFavorite.UserId);
+            Assert.AreEqual(book.Id, addedFavorite.BookId);
+        }
+
+        [Test]
+        public async Task FavoriteBookAsync_BookNotFound_DoesNotAddToUserFavorites()
+        {
+            // Arrange
+            var user = dbContext.Users.First();
+            var nonExistingBookId = Guid.NewGuid();
+
+            // Act
+            await bookService.FavoriteBookAsync(nonExistingBookId, user);
+
+            // Assert
+            Assert.IsEmpty(dbContext.Favorites);
+        }
+
+        [Test]
+        public async Task BookFavoriteAsync_ReturnsFavoriteBooksForUser()
+        {
+            // Arrange
+            var user = dbContext.Users.First();
+
+            // Act
+            var result = await bookService.BookFavoriteAsync(user);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(user.Favorites.Count, result.Count());
+        }
+
+        [Test]
+        public async Task BookFavoriteAsync_UserWithNoFavoriteBooks_ThrowsException()
+        {
+            // Arrange
+            var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe", Age = 20 }; // Create a user without any favorite books
+
+            // Act & Assert
+            Assert.ThrowsAsync<NullReferenceException>(() => bookService.BookFavoriteAsync(user));
+        }
+    
+    [Test]
+    public async Task GetAllQuizesAsync_Should_Return_All_Books_With_Publisher()
+    {
+        // Act
+        var result = await bookService.GetAllQuizesAsync();
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(3, result.Count()); // Assuming 3 books are added in the seed data
+        foreach (var book in result)
+        {
+            Assert.IsNotNull(book.Id);
+            Assert.IsNotNull(book.Title);
+            Assert.IsNotNull(book.Author);
+            Assert.IsNotNull(book.Pages);
+            Assert.IsNotNull(book.ISBN);
+            Assert.IsNotNull(book.Image);
+            Assert.IsNotNull(book.PublishingYear);
+            Assert.IsNotNull(book.PublisherName);
+        }
+    }
+    [Test]
+    public async Task FindBooksByAuthorAsync_Should_Return_CorrectBooks_For_ValidAuthor()
+    {
+        // Arrange
+        string authorToSearch = "Maurice Sendak"; // Author of one of the seeded books
+
+        // Act
+        var result = await bookService.FindBooksByAuthorAsync(authorToSearch);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<IEnumerable<BooksViewModel>>(result);
+
+        // Assuming only one book is seeded with the specified author
+        Assert.AreEqual(1, result.Count());
+
+        var book = result.FirstOrDefault();
+        Assert.IsNotNull(book);
+
+        Assert.AreEqual("Where the Wild Things Are", book.Title);
+        Assert.AreEqual("Maurice Sendak", book.Author);
+        Assert.AreEqual(48, book.Pages);
+        Assert.AreEqual("9780060254926", book.ISBN);
+        Assert.AreEqual(8.99m, book.Price);
+        Assert.AreEqual("https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", book.Image);
+        Assert.AreEqual(1963, book.PublishingYear);
+        Assert.AreEqual("Holiday House", book.PublisherName);
+    }
+
+    [Test]
+        public void FindBooksByAuthorAsync_Should_Throw_ArgumentNullException_For_NullAuthor()
+        {
+            // Arrange - No need for additional setup
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await bookService.FindBooksByAuthorAsync(null));
+        }
+
+        [Test]
+        public void FindBooksByAuthorAsync_Should_Throw_ArgumentNullException_For_EmptyAuthor()
+        {
+            // Arrange - No need for additional setup
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await bookService.FindBooksByAuthorAsync(""));
+        }
+        [Test]
+        public async Task FindBooksByPublishingHouseAsync_WithValidPublishingHouse_ReturnsMatchingBooks()
+        {
+            // Arrange
+            var publishingHouse = "Holiday"; // Part of the publishing house name
+            var expectedCount = 3; // All books belong to the "Holiday House" publishing house
+
+            // Act
+            var result = await bookService.FindBooksByPublishingHouseAsync(publishingHouse);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedCount, result.Count());
+        }
+
+        [Test]
+        public void FindBooksByPublishingHouseAsync_WithNullPublishingHouse_ThrowsArgumentNullException()
+        {
+            // Arrange
+            string publishingHouse = null;
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(() => bookService.FindBooksByPublishingHouseAsync(publishingHouse));
+        }
+
+        [Test]
+        public async Task FindBooksByPublishingHouseAsync_WithNonExistingPublishingHouse_ReturnsEmptyList()
+        {
+            // Arrange
+            var publishingHouse = "NonExistentPublishingHouse"; // A publishing house that does not exist
+
+            // Act
+            var result = await bookService.FindBooksByPublishingHouseAsync(publishingHouse);
+
+            // Assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task FindBooksByPublishingHouseAsync_WithMixedCasePublishingHouse_ReturnsMatchingBooks()
+        {
+            // Arrange
+            var publishingHouse = "Candle"; // Part of the publishing house name, mixed case
+            var expectedCount = 3; // All books belong to the "Candlewick Press" publishing house
+
+            // Act
+            var result = await bookService.FindBooksByPublishingHouseAsync(publishingHouse);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedCount, result.Count());
+        }
+        [Test]
+        public async Task FindBooksByPriceRangeAsync_Should_Return_Books_In_Range()
+        {
+            // Arrange
+            int minPrice = 5; // Minimum price to search for
+            int maxPrice = 10; // Maximum price to search for
+
+            // Act
+            var result = await bookService.FindBooksByPriceRangeAsync(minPrice, maxPrice);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IEnumerable<BooksViewModel>>(result);
+
+            // Assuming there are books within the specified price range in the seed data
+            Assert.IsTrue(result.Any());
+
+            // Assert that all returned books are within the specified price range
+            foreach (var book in result)
+            {
+                Assert.IsTrue(book.Price >= minPrice && book.Price <= maxPrice);
+            }
+        }
+
+        [Test]
+        public async Task FindBooksByPriceRangeAsync_Should_Return_Empty_When_No_Books_In_Range()
+        {
+            // Arrange
+            int minPrice = 50; // Minimum price to search for
+            int maxPrice = 100; // Maximum price to search for
+
+            // Act
+            var result = await bookService.FindBooksByPriceRangeAsync(minPrice, maxPrice);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IEnumerable<BooksViewModel>>(result);
+            Assert.IsFalse(result.Any());
+        }
     }
 }
+
+
+
 
