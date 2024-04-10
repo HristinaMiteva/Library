@@ -79,7 +79,7 @@ namespace Testing
         public async Task DeletePublisherAsync_Should_Delete_Existing_Publisher()
         {
             // Arrange
-            var publisherIdToDelete = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); // Use a real existing publisher ID from your seed data
+            var publisherIdToDelete = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); 
 
             // Act
             await publisherService.DeletePublisherAsync(publisherIdToDelete);
