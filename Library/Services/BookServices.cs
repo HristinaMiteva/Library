@@ -299,7 +299,31 @@ namespace Library.Services
                 PublisherName = b.Publisher?.Name
             });
         }
+        public async Task UpdateBookAsync(Guid id, EditBookViewModel viewModel)
+        {
+            var book = await context.Books.FindAsync(id);
+            if (book == null)
+            {
+                throw new ArgumentNullException(nameof(book), "Book not found.");
+            }
+
+            book.Title = viewModel.Title;
+            book.Author = viewModel.Author;
+            book.Pages = viewModel.Pages;
+            book.ISBN = viewModel.ISBN;
+            book.Price = viewModel.Price;
+            book.Image = viewModel.Image;
+            book.PublishingYear = viewModel.PublishingYear;
+            book.PublisherId = viewModel.PublisherId;
+
+            context.Entry(book).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+        }
 
 
+        public async Task<Book> GetBookByIdAsync(Guid id)
+        {
+            return await this.context.Books.FindAsync(id);
+        }
     }
 }

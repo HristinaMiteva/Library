@@ -21,6 +21,7 @@ namespace Library.Contracts
         Task<IEnumerable<BooksViewModel>> FindBooksByAuthorAsync(string author);
         Task<IEnumerable<BooksViewModel>> FindBooksByPublishingHouseAsync(string publishingHouse);
         Task<IEnumerable<BooksViewModel>> FindBooksByPriceRangeAsync(int minPrice, int maxPrice);
-
+        Task UpdateBookAsync(Guid id, EditBookViewModel viewModel);
+        Task<Book> GetBookByIdAsync(Guid id);
     }
 }

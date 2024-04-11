@@ -202,6 +202,7 @@ namespace Library.Controllers
         {
             return View();
         }
+        
         [HttpGet]
         public IActionResult FindByAuthor()
         {
@@ -309,7 +310,62 @@ namespace Library.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        [Authorize(Roles = "Administrator, Redactor, Writer")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var book = await bookServices.GetBookByIdAsync(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
 
+            var viewModel = new EditBookViewModel
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Pages = book.Pages,
+                ISBN = book.ISBN,
+                Price = book.Price,
+                Image = book.Image,
+                PublishingYear = book.PublishingYear,
+                PublisherId = book.PublisherId
+            };
 
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator, Redactor, Writer")]
+        public async Task<IActionResult> Edit(Guid id, EditBookViewModel viewModel)
+        {
+            if (id != viewModel.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await bookServices.UpdateBookAsync(id, viewModel);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (ArgumentNullException ex)
+                {
+                    // Log the exception or handle it as needed
+                    ModelState.AddModelError("", ex.Message);
+                    return View(viewModel);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "An error occurred while updating the book.");
+                }
+            }
+
+            return View(viewModel);
+        }
+      
     }
 }

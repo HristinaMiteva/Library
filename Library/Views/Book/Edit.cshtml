@@ -1,0 +1,62 @@
+﻿@using Library.Models.BookViewModels
+@model EditBookViewModel
+@{
+    ViewBag.Title = "Edit Book";
+}
+<h2>Edit Book</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Pages" class="control-label"></label>
+        <input asp-for="Pages" class="form-control" />
+        <span asp-validation-for="Pages" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ISBN" class="control-label"></label>
+        <input asp-for="ISBN" class="form-control" />
+        <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PublishingYear" class="control-label"></label>
+        <input asp-for="PublishingYear" class="form-control" />
+        <span asp-validation-for="PublishingYear" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PublisherId" class="control-label"></label>
+        <input asp-for="PublisherId" class="form-control" />
+        <span asp-validation-for="PublisherId" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" style="background-color:#FFAE42; border:none; color:black">Update</button>
+    <a asp-action="Index" class="btn btn-secondary" style="background-color:#FFD89C; border:none; color:black">Cancel</a>
+</form>

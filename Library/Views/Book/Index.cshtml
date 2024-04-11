@@ -43,7 +43,7 @@
                 <p>Price: @book.Price:f2 (lv.)</p>
             </div>
             @if (User.IsInRole("Reader") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
-            {
+                {
 
 
                     <div class="action-buttons">
@@ -57,8 +57,13 @@
                             <input type="submit" value="Mark as read" class="fs-6 btn btn-success mb-3 p-2 read-button" />
                         </form>
                     </div>
-
-            }
+                }
+                @if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
+                {
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-primary edit-button">
+                        Edit
+                    </a>
+                }
 
             @if (User.IsInRole("Redactor") || User.IsInRole("Writer") || User.IsInRole("Administrator"))
             {

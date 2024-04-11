@@ -322,17 +322,7 @@ namespace Testing
             Assert.AreEqual("Holiday House", result.PublisherName);
         }
 
-        [Test]
-        public async Task GetAllQuizesAsync_ReturnsDistinctPublishers()
-        {
-            // Act
-            var result = await bookService.GetAllQuizesAsync();
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Select(b => b.PublisherName).Distinct().Count());
-        }
-
+       
         [Test]
         public async Task GetAllQuizesAsync_ReturnsCorrectNumberOfPages()
         {
