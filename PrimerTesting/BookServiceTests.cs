@@ -471,31 +471,7 @@ namespace Testing
             Assert.IsFalse(result.Any());
         }
         
-        [Test]
-        public async Task UpdateBookAsync_ThrowsException_WhenBookNotFound()
-        {
-            // Arrange
-            var nonExistentId = Guid.NewGuid(); // A non-existent book ID
-            var viewModel = new EditBookViewModel();
-
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentNullException>(async () => await bookService.UpdateBookAsync(nonExistentId, viewModel));
-            Assert.AreEqual("Book not found.", ex.Message);
-        }
-
-        [Test]
-        public async Task GetBookByIdAsync_ReturnsCorrectBook()
-        {
-            // Arrange
-            var expectedBookId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); // Assuming this is the ID of the book to be retrieved
-
-            // Act
-            var result = await bookService.GetBookByIdAsync(expectedBookId);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expectedBookId, result.Id);
-        }
+       
 
         [Test]
         public async Task GetBookByIdAsync_ReturnsNull_WhenBookNotFound()

@@ -182,26 +182,7 @@ namespace Library.Controllers
                 return View(await this.bookServices.GetAllQuizesAsync());
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> Quiz()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Quiz2()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Quiz3()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Find()
-        {
-            return View();
-        }
+       
         
         [HttpGet]
         public IActionResult FindByAuthor()
@@ -366,6 +347,65 @@ namespace Library.Controllers
 
             return View(viewModel);
         }
-      
+        [HttpGet]
+        public async Task<IActionResult> Quiz()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz2()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz3()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz4()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz5()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz6()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz7()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz8()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz9()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz10()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Quiz11()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Find()
+        {
+            return View();
+        }
     }
 }
