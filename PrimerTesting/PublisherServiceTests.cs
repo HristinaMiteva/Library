@@ -43,6 +43,75 @@ namespace Testing
         public async Task GetAllAsync_Returns_AllPublishers()
         {
             // Arrange
+
+            // Act
+            var result = await publisherService.GetAllAsync();
+
+            // Assert
+            Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_CorrectPublisherNames()
+        {
+            // Arrange
+            var expectedNames = new List<string> { "Holiday House", "Candlewick Press", "Arbordale Publishing" };
+
+            // Act
+            var result = await publisherService.GetAllAsync();
+
+            // Assert
+            CollectionAssert.AreEqual(expectedNames, result.Select(p => p.Name));
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_CorrectNumberOfPublishers()
+        {
+            // Arrange
+
+            // Act
+            var result = await publisherService.GetAllAsync();
+
+            // Assert
+            Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_PublisherIds()
+        {
+            // Arrange
+            var expectedIds = new List<Guid>
+        {
+            Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"),
+            Guid.Parse("b2b63af9-18b0-48f4-9078-30836e6f54f7"),
+            Guid.Parse("36bda0c2-9ea8-4c67-a86f-f81486343f12")
+        };
+
+            // Act
+            var result = await publisherService.GetAllAsync();
+
+            // Assert
+            CollectionAssert.AreEqual(expectedIds, result.Select(p => p.Id));
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_EmptyList_WhenNoPublishers()
+        {
+            // Arrange
+            dbContext.Publishers.RemoveRange(dbContext.Publishers);
+            await dbContext.SaveChangesAsync();
+
+            // Act
+            var result = await publisherService.GetAllAsync();
+
+            // Assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task GetAllAsync_Returns_WithNames_AllPublishers()
+        {
+            // Arrange
             var expectedPublishers = new List<PublishersViewModel>
             {
                 new PublishersViewModel { Id = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"), Name = "Holiday House" },
@@ -62,6 +131,7 @@ namespace Testing
             }
         }
 
+
         [Test]
         public async Task AddPublisherAsync_Should_Add_New_Publisher()
         {
@@ -76,17 +146,76 @@ namespace Testing
             Assert.IsNotNull(addedPublisher);
         }
         [Test]
-        public async Task DeletePublisherAsync_Should_Delete_Existing_Publisher()
+        public async Task DeletePublisherAsync_RemovesPublisherFromDatabase()
         {
             // Arrange
-            var publisherIdToDelete = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6"); 
+            var publisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6");
 
             // Act
-            await publisherService.DeletePublisherAsync(publisherIdToDelete);
+            await publisherService.DeletePublisherAsync(publisherId);
 
             // Assert
-            var deletedPublisher = await dbContext.Publishers.FirstOrDefaultAsync(p => p.Id == publisherIdToDelete);
-            Assert.IsNull(deletedPublisher, "Ensure that the publisher is deleted.");
+            var deletedPublisher = await dbContext.Publishers.FindAsync(publisherId);
+            Assert.IsNull(deletedPublisher);
+        }
+
+        [Test]
+        public void DeletePublisherAsync_ThrowsException_WhenIdNotFound()
+        {
+            // Arrange
+            var nonExistentId = Guid.NewGuid();
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await publisherService.DeletePublisherAsync(nonExistentId));
+        }
+
+        [Test]
+        public async Task DeletePublisherAsync_RemovesAssociatedBooks()
+        {
+            // Arrange
+            var publisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6");
+
+            // Act
+            await publisherService.DeletePublisherAsync(publisherId);
+
+            // Assert
+            var books = await dbContext.Books.Where(b => b.PublisherId == publisherId).ToListAsync();
+            Assert.IsEmpty(books);
+        }
+
+        [Test]
+        public async Task DeletePublisherAsync_ThrowsException_WhenIdIsEmptyGuid()
+        {
+            // Arrange
+            var emptyGuid = Guid.Empty;
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await publisherService.DeletePublisherAsync(emptyGuid));
+        }
+
+        [Test]
+        public async Task DeletePublisherAsync_DoesNotRemoveOtherPublishers()
+        {
+            // Arrange
+            var publisherId = Guid.Parse("ea3480ae-657b-4bcf-ac44-8e45081b58e6");
+            var remainingPublisherId = Guid.Parse("b2b63af9-18b0-48f4-9078-30836e6f54f7");
+
+            // Act
+            await publisherService.DeletePublisherAsync(publisherId);
+
+            // Assert
+            var remainingPublisher = await dbContext.Publishers.FindAsync(remainingPublisherId);
+            Assert.IsNotNull(remainingPublisher);
+        }
+
+        [Test]
+        public async Task DeletePublisherAsync_ThrowsException_WhenIdIsInvalid()
+        {
+            // Arrange
+            var invalidId = "InvalidId";
+
+            // Act & Assert
+            Assert.ThrowsAsync<FormatException>(async () => await publisherService.DeletePublisherAsync(Guid.Parse(invalidId)));
         }
     }
 }

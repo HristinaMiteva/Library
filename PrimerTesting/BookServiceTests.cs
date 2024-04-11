@@ -46,40 +46,70 @@ namespace Testing
             dbContext.Database.EnsureDeleted();
         }
 
-        //[Test]
-        //public async Task GetAllAsync_ReturnsCorrectBooksViewModels()
-        //{
-        //    // Arrange
-        //    var mockSet = new Mock<DbSet<Book>>();
-        //    var books = SeedDatabase();
+        [Test]
+        public async Task GetAllAsync_ReturnsListOfBooks()
+        {
+            // Act
+            var result = await bookService.GetAllAsync();
 
-        //    mockSet.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(books.Provider);
-        //    mockSet.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(books.Expression);
-        //    mockSet.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(books.ElementType);
-        //    mockSet.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(books.GetEnumerator());
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+        }
 
-        //    var mockContext = new Mock<LibraryDbContext>();
-        //    mockContext.Setup(c => c.Books).Returns(mockSet.Object);
+        [Test]
+        public async Task GetAllAsync_ReturnsBooksViewModel()
+        {
+            // Act
+            var result = (await bookService.GetAllAsync()).FirstOrDefault();
 
-        //    var service = new BookServices(mockContext.Object);
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Where the Wild Things Are", result.Title);
+            Assert.AreEqual("Holiday House", result.PublisherName);
+        }
 
-        //    // Act
-        //    var result = await service.GetAllAsync();
+        [Test]
+        public async Task GetAllAsync_ReturnsEmptyList_WhenNoBooks()
+        {
+            // Arrange
+            dbContext.Books.RemoveRange(dbContext.Books);
+            await dbContext.SaveChangesAsync();
 
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Assert.AreEqual(3, result.Count());
+            // Act
+            var result = await bookService.GetAllAsync();
 
-        //    var firstBook = result.First();
-        //    Assert.AreEqual("Where the Wild Things Are", firstBook.Title);
-        //    Assert.AreEqual("Maurice Sendak", firstBook.Author);
-        //    Assert.AreEqual(48, firstBook.Pages);
-        //    Assert.AreEqual("9780060254926", firstBook.ISBN);
-        //    Assert.AreEqual(8.99, firstBook.Price);
-        //    Assert.AreEqual("https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", firstBook.Image);
-        //    Assert.AreEqual(1963, firstBook.PublishingYear);
-        //    Assert.AreEqual("Holiday House", firstBook.PublisherName);
-        //}
+            // Assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task GetAllAsync_ReturnsCorrectNumberOfBooks()
+        {
+            // Act
+            var result = await bookService.GetAllAsync();
+
+            // Assert
+            Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public async Task GetAllAsync_ReturnsCorrectBookDetails()
+        {
+            // Act
+            var result = (await bookService.GetAllAsync()).FirstOrDefault();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Where the Wild Things Are", result.Title);
+            Assert.AreEqual("Maurice Sendak", result.Author);
+            Assert.AreEqual(48, result.Pages);
+            Assert.AreEqual("9780060254926", result.ISBN);
+            Assert.AreEqual(8.99, result.Price);
+            Assert.AreEqual(1963, result.PublishingYear);
+            Assert.AreEqual("https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", result.Image);
+            Assert.AreEqual("Holiday House", result.PublisherName);
+        }
 
         [Test]
         public void AddBookAsync_Should_Return_Publisher_SelectList()
@@ -227,29 +257,93 @@ namespace Testing
             // Act & Assert
             Assert.ThrowsAsync<NullReferenceException>(() => bookService.BookFavoriteAsync(user));
         }
-    
-    [Test]
-    public async Task GetAllQuizesAsync_Should_Return_All_Books_With_Publisher()
-    {
-        // Act
-        var result = await bookService.GetAllQuizesAsync();
 
-        // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(3, result.Count()); // Assuming 3 books are added in the seed data
-        foreach (var book in result)
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsListOfBooks()
         {
-            Assert.IsNotNull(book.Id);
-            Assert.IsNotNull(book.Title);
-            Assert.IsNotNull(book.Author);
-            Assert.IsNotNull(book.Pages);
-            Assert.IsNotNull(book.ISBN);
-            Assert.IsNotNull(book.Image);
-            Assert.IsNotNull(book.PublishingYear);
-            Assert.IsNotNull(book.PublisherName);
+            // Act
+            var result = await bookService.GetAllQuizesAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
         }
-    }
-    [Test]
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsBooksViewModel()
+        {
+            // Act
+            var result = (await bookService.GetAllQuizesAsync()).FirstOrDefault();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Where the Wild Things Are", result.Title);
+            Assert.AreEqual("Holiday House", result.PublisherName);
+        }
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsEmptyList_WhenNoBooks()
+        {
+            // Arrange
+            dbContext.Books.RemoveRange(dbContext.Books);
+            await dbContext.SaveChangesAsync();
+
+            // Act
+            var result = await bookService.GetAllQuizesAsync();
+
+            // Assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsCorrectNumberOfBooks()
+        {
+            // Act
+            var result = await bookService.GetAllQuizesAsync();
+
+            // Assert
+            Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsCorrectBookDetails()
+        {
+            // Act
+            var result = (await bookService.GetAllQuizesAsync()).FirstOrDefault();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Where the Wild Things Are", result.Title);
+            Assert.AreEqual("Maurice Sendak", result.Author);
+            Assert.AreEqual(48, result.Pages);
+            Assert.AreEqual("9780060254926", result.ISBN);
+            Assert.AreEqual(1963, result.PublishingYear);
+            Assert.AreEqual("https://m.media-amazon.com/images/I/91tBaQgfHeL._AC_UF1000,1000_QL80_.jpg", result.Image);
+            Assert.AreEqual("Holiday House", result.PublisherName);
+        }
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsDistinctPublishers()
+        {
+            // Act
+            var result = await bookService.GetAllQuizesAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Select(b => b.PublisherName).Distinct().Count());
+        }
+
+        [Test]
+        public async Task GetAllQuizesAsync_ReturnsCorrectNumberOfPages()
+        {
+            // Act
+            var result = await bookService.GetAllQuizesAsync();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(106, result.Sum(b => b.Pages));
+        }
+        [Test]
     public async Task FindBooksByAuthorAsync_Should_Return_CorrectBooks_For_ValidAuthor()
     {
         // Arrange
@@ -337,7 +431,7 @@ namespace Testing
         public async Task FindBooksByPublishingHouseAsync_WithMixedCasePublishingHouse_ReturnsMatchingBooks()
         {
             // Arrange
-            var publishingHouse = "Candle"; // Part of the publishing house name, mixed case
+            var publishingHouse = "Holiday House"; // Part of the publishing house name, mixed case
             var expectedCount = 3; // All books belong to the "Candlewick Press" publishing house
 
             // Act
