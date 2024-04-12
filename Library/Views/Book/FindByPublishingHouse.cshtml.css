@@ -1,0 +1,54 @@
+﻿
+h3 {
+    color: #F88017; /* Orange */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.form-control {
+    border: 2px solid #FFAE42; /* Orange */
+    border-radius: 20px; /* Rounded corners */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.red-border:focus {
+    border-color: #F88017; /* Orange on focus */
+}
+
+.input-group-text {
+    background-color: #FFAE42; /* Orange */
+    border: none;
+}
+
+    .input-group-text input[type="submit"] {
+        background-color: #FFAE42; /* Orange */
+        border: none;
+        cursor: pointer;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+        .input-group-text input[type="submit"]:hover {
+            background-color: #FFC266; /* Lighter Orange on hover */
+        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+th {
+    color: #D2691E; /* Purple */
+}
+
+img {
+    max-height: 200px;
+    max-width: 100px;
+    vertical-align: middle;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 2px 2px 5px #888888; /* Drop shadow */
+}

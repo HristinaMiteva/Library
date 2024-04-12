@@ -1,18 +1,16 @@
 ﻿@model IEnumerable<BooksViewModel>
 
-<head>
-    <link rel="stylesheet" href="BookFavorite.cshtml.css">
-</head>
-<table class="table">
+<table>
     <thead>
         <tr>
-            <th></th>
+            <th>Image</th>
             <th>Title</th>
             <th>Pages</th>
             <th>Author</th>
             <th>ISBN</th>
-            <th>Publishing year</th>
-            <th>Price</th>
+            <th>Publishing Year</th>
+            <th>Price (lv.)</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,16 +18,16 @@
         {
             <tr>
                 <td>
-                    <img class="card-ing-top" src="@book.Image" alt="Book Image" height="150" width="100">
+                    <img src="@book.Image" alt="Book Image">
                 </td>
                 <td>@book.Title</td>
                 <td>@book.Pages</td>
                 <td>@book.Author</td>
                 <td>@book.ISBN</td>
                 <td>@book.PublishingYear</td>
-                <td>@book.Price:f2 (lv.)</td>
+                <td>@book.Price</td>
                 <td>
-                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-warning remove-favorite-button">Remove</a>
+                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-primary" style="background-color:#FFAE42; border:none; color:black">Remove</a>
                 </td>
             </tr>
         }

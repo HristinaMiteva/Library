@@ -47,7 +47,10 @@ button.accept-policy {
   line-height: 60px;
 }
 
-
+.input-group-text input[type="submit"] {
+   
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
 
 
 

@@ -61,3 +61,38 @@
     .edit-button:hover {
         background-color: #FFD89C;
     }
+
+
+h3 {
+    color: #F88017; /* Orange */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.form-control {
+    border: 2px solid #FFAE42; /* Orange */
+    border-radius: 20px; /* Rounded corners */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.red-border:focus {
+    border-color: #F88017; /* Orange on focus */
+}
+
+.input-group-text {
+    background-color: #FFAE42; /* Orange */
+    border: none;
+}
+
+    .input-group-text input[type="submit"] {
+        background-color: #FFAE42; /* Orange */
+        border: none;
+        cursor: pointer;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+        .input-group-text input[type="submit"]:hover {
+            background-color: #FFC266; /* Lighter Orange on hover */
+        }
+
+
+

@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<PublishersViewModel>
-<head>
-    <link rel="stylesheet" href="Index.cshtml.css">
-</head>
-<h1>Publishing houses:</h1>
 
+<h1 style="color:#FFAE42">Publishing houses:</h1>
+@if (User.IsInRole("Administrator"))
+{
+    <a asp-controller="Publisher" asp-action="Add" class="btn btn-primary" style="background-color:#FFAE42; border-color:#FFAE42">Add Publisher</a>
+}
 <table class="table">
     <thead>
         <tr>
@@ -19,9 +20,9 @@
                 <td>@publisher.Name</td>
                 <td></td>
                 <td>
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator")||User.IsInRole("Redactor"))
                     {
-                        <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-warning delete-button">Delete</a>
+                        <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@publisher.Id" class="btn btn-warning delete-button" style="background-color:#EB5406;border:none">Delete</a>
                     }
                 </td>
             </tr>

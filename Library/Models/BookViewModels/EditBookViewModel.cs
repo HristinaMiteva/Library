@@ -12,7 +12,7 @@ namespace Library.Models.BookViewModels
         public string Title { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 10)]
+        [StringLength(30, MinimumLength = 2)]
         public string Author { get; set; }
 
         public int? Pages { get; set; }

@@ -60,14 +60,14 @@
                 }
                 @if (User.IsInRole("Administrator") || User.IsInRole("Writer") || User.IsInRole("Redactor"))
                 {
-                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-primary edit-button">
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-primary edit-button" style="background-color:#F88017; border:none">
                         Edit
                     </a>
                 }
 
             @if (User.IsInRole("Redactor") || User.IsInRole("Writer") || User.IsInRole("Administrator"))
             {
-                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-warning delete-button">
+                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-warning delete-button" style="background-color:#EB5406">
                         Delete
                     </a>
 

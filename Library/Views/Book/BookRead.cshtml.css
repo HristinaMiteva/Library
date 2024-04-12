@@ -1,4 +1,5 @@
-﻿table {
+﻿/* kidFriendly.css */
+table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -8,6 +9,7 @@ th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-family: 'Comic Sans MS', cursive, sans-serif;
+    vertical-align: middle; /* Align text vertically in the middle */
 }
 
 th {
@@ -21,6 +23,3 @@ img {
     border-radius: 8px; /* Rounded corners */
     box-shadow: 2px 2px 5px #888888; /* Drop shadow */
 }
-
-
-

@@ -61,7 +61,7 @@
                                 </style>
                             </li>
 
-                            @if (User.IsInRole("Administrator")|| User.IsInRole("Writer"))
+                            @if (User.IsInRole("Administrator")|| User.IsInRole("Writer")||User.IsInRole("Redactor"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Index" style="font-size: 15px;">
@@ -75,7 +75,7 @@
                                     </style>
                                 </li>
                             }
-                            @if(User.IsInRole("Administartor"))
+                            @if(User.IsInRole("Administrator"))
                             {
                                 <li class="nav-item">
                                      <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MakeRole" style="font-size: 15px;">
