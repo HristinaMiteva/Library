@@ -392,16 +392,7 @@ namespace Library.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> Quiz10()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> Quiz11()
-        {
-            return View();
-        }
+        
         [HttpGet]
         public async Task<IActionResult> Find()
         {
