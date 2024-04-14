@@ -89,8 +89,7 @@
                                     </style>
                                 </li>
                             }
-                            @if (User.IsInRole("Reader")|| User.IsInRole("Writer"))
-                            {
+                           
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Find" style="font-size: 15px;">
                                         Find
@@ -102,7 +101,7 @@
                                         }
                                     </style>
                                 </li>
-                            }
+                            
 
                         }
                         else 
