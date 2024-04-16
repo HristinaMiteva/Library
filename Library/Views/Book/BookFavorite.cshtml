@@ -27,7 +27,10 @@
                 <td>@book.PublishingYear</td>
                 <td>@book.Price</td>
                 <td>
-                    <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-primary" style="background-color:#FFAE42; border:none; color:black">Remove</a>
+                    @if (User.IsInRole("Reader")||User.IsInRole("Writer"))
+                    {
+                        <a asp-controller="Book" asp-action="RemoveFromFavorites" asp-route-bookId="@book.Id" class="btn btn-primary" style="background-color:#FFAE42; border:none; color:black">Remove</a>
+                    }
                 </td>
             </tr>
         }

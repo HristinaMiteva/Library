@@ -5,8 +5,6 @@ namespace Library.Data.Models
 {
     public class UserBook
     {
-       
-
         [Required]
         public Guid BookId { get; set; }
 

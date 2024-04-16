@@ -335,7 +335,6 @@ namespace Library.Controllers
                 }
                 catch (ArgumentNullException ex)
                 {
-                    // Log the exception or handle it as needed
                     ModelState.AddModelError("", ex.Message);
                     return View(viewModel);
                 }
